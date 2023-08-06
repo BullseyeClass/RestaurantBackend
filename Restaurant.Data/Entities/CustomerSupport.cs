@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Restaurant.Data.Entities
 {
-    internal class CustomerSupport
+    public class CustomerSupport
     {
+        public Guid Id { get; set; } = Guid.NewGuid();
+        public string Message { get; set; }
+        public virtual Customer Customer { get; set; }
+        public virtual Guid CustomerId { get; set; }
     }
 }

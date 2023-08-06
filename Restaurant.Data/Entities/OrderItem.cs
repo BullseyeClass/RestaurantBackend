@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace Restaurant.Data.Entities
 {
-    public class Address
+    public class OrderItem
     {
         public Guid Id { get; set; } = Guid.NewGuid();
-        public string Street { get; set; }
-        public string City { get; set; }
-        public string State { get; set; }
-        public int PostalCode { get; set; }
-        public string Country { get; set; }
+        public int Quantity { get; set; }
         public virtual Customer Customer { get; set; }
         public virtual Guid CustomerId { get; set; }
+        public virtual Order Order { get; set; }
+        public virtual Guid OrderId { get; set; }
+        public virtual IQueryable<Product> Products { get; set; }
+
     }
 }
