@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Restaurant.Data.Entities
 {
-    internal class Review
+    public class Review
     {
     }
 }

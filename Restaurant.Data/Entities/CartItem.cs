@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace Restaurant.Data.Entities
 {
-    internal class CartItem
+    public class CartItem
     {
+        public Guid Id { get; set; } = Guid.NewGuid();
+        public int Quantity { get; set; }
+        public virtual Customer Customer { get; set; }
+        public virtual Guid CustomerId { get; set; }
+        public virtual Product Product { get; set; }
+        public virtual Guid ProductId { get; set; }
     }
 }

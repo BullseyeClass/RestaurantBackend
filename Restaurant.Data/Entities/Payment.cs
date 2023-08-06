@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace Restaurant.Data.Entities
 {
-    internal class Payment
+    public class Payment
     {
+        public Guid Id { get; set; } = Guid.NewGuid();
+        public decimal Amount { get; set; }
+        public DateTime PaymentDate { get; set; }
+        public string PaymentMethod { get; set; } // E.g., Credit Card, PayPal, etc.
+        public virtual Order Order { get; set; }
+        public virtual Guid OrderId { get; set; }
     }
+
 }
