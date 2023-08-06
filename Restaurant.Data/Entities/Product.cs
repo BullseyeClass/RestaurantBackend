@@ -22,7 +22,7 @@ namespace Restaurant.Data.Entities
         public string ReturnPolicy { get; set; }
         public string DeliveryInfo { get; set; }
         public int QuantityInStock { get; set; }
-        public virtual OrderItem OrderItem { get; set; }
-        public virtual Guid OrderItemsId { get; set; }
+        //public virtual OrderItem OrderItem { get; set; }
+        //public virtual Guid OrderItemsId { get; set; }
     }
 }

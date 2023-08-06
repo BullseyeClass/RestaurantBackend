@@ -9,12 +9,12 @@ namespace Restaurant.Data.Entities
     public class Address
     {
         public Guid Id { get; set; } = Guid.NewGuid();
-        public string Street { get; set; }
-        public string City { get; set; }
-        public string State { get; set; }
-        public int PostalCode { get; set; }
-        public string Country { get; set; }
-        public virtual Customer Customer { get; set; }
-        public virtual Guid CustomerId { get; set; }
+        public string Street { get; set; } = string.Empty;
+        public string City { get; set; } = string.Empty;
+        public string State { get; set; } = string.Empty;
+        public int PostalCode { get; set; } = 0;
+        public string Country { get; set; } = string.Empty;
+        public virtual Customer Customer { get; set; } = new Customer();
+        public  Guid CustomerId { get; set; }
     }
 }
