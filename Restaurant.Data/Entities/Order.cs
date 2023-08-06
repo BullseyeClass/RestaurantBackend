@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace Restaurant.Data.Entities
 {
-    internal class Order
+    public class Order
     {
+        public Guid Id { get; set; } = Guid.NewGuid();
+        public DateTime OrderDate { get; set; }
+        public decimal TotalAmount { get; set; }
+        public virtual Customer Customer { get; set; }
+        public virtual Guid CustomerId { get; set; }
+        public virtual IQueryable<OrderItem> OrderItems { get; set; }
     }
 }
