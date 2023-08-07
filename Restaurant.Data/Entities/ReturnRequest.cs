@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Restaurant.Data.Commons;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Restaurant.Data.Entities
 {
-    public class ReturnRequest
+    public class ReturnRequest : EntitiesCommon
     {
         public Guid Id { get; set; } = Guid.NewGuid();
         public string Reason { get; set; }
