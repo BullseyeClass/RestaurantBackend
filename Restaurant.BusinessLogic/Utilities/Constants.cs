@@ -14,6 +14,5 @@ namespace Restaurant.BusinessLogic.Utilities
             public const string Customer = "Customer";
         }
         public static string Currency = "NGN";
-        public static string TrxRef = "AQUA";
     }
 }
