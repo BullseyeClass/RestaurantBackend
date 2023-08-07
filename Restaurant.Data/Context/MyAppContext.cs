@@ -42,10 +42,6 @@ namespace Restaurant.Data.Context
                 .WithOne(c => c.CustomerSupport)    // Customer has one CustomerSupport
                 .HasForeignKey<CustomerSupport>(cs => cs.CustomerId) // Foreign key
                 .OnDelete(DeleteBehavior.Restrict); // Set the delete behavior
-
-            // Optionally, if you want to configure other properties or relationships, do it here.
-
-            // ...
         }
     }
 }

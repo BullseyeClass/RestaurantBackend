@@ -13,8 +13,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.ConfigureAuthentication(builder.Configuration);
 builder.Services.ConfigureIdentity();
 builder.Services.AddSwaggerConfiguration();
-builder.Services.AddDbContext<MyAppContext>(options =>
-            options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbConfig(builder.Configuration);
 
 var app = builder.Build();
 
