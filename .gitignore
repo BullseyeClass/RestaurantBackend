@@ -363,5 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # Ignore environment-specific appsettings files
-appsettings.Development.json
-appsettings.Production.json
+appsettings*.json
