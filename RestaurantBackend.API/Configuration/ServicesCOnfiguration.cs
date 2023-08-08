@@ -5,7 +5,7 @@ using BootCamp.Data.Repository.Interface;
 using Microsoft.Extensions.DependencyInjection;
 using Restaurant.BusinessLogic.Services.Implementations;
 
-namespace Restaurant.API.Configurations
+namespace Restaurant.API.Configuration
 {
     public static class ServicesCOnfiguration
     {

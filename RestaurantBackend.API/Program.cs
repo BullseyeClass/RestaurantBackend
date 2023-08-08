@@ -1,7 +1,4 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Restaurant.API.Configuration;
-using Restaurant.Data.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +8,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.ConfigureAuthentication(builder.Configuration);
-builder.Services.ConfigureIdentity();
+builder.Services.ConfigurationIdentity();
 builder.Services.AddSwaggerConfiguration();
 builder.Services.AddDbConfig(builder.Configuration);
 
