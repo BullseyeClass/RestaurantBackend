@@ -13,8 +13,8 @@ namespace Restaurant.Data.Entities
         public string LastName { get; set; } = string.Empty;
         public string MiddleName { get; set; } = string.Empty;
         public virtual CustomerSupport? CustomerSupport { get; set; }
-        public virtual IQueryable<Address>? Addresses { get; set; }
-        public virtual IQueryable<Order>? Orders { get; set;}
-        public virtual IQueryable<WishList>? WishLists { get; set; }
+        public virtual List<Address>? Addresses { get; set; }
+        public virtual List<Order>? Orders { get; set;}
+        public virtual List<WishList>? WishLists { get; set; }
     }
 }

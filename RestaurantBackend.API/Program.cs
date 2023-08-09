@@ -1,4 +1,9 @@
+using Microsoft.AspNetCore.Identity;
 using Restaurant.API.Configuration;
+using Restaurant.Data.Context;
+using Restaurant.Data.Entities;
+using Restaurant.Data.Seeed;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +15,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.ConfigureAuthentication(builder.Configuration);
 builder.Services.ConfigurationIdentity();
 builder.Services.AddSwaggerConfiguration();
+builder.Services.AddServices();
 builder.Services.AddDbConfig(builder.Configuration);
 
 var app = builder.Build();
@@ -26,5 +32,13 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+// Call your data seeding method here
+using var scope = app.Services.CreateScope();
+var services = scope.ServiceProvider;
+var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+var userManager = services.GetRequiredService<UserManager<Customer>>();
+var dbContext = services.GetRequiredService<MyAppContext>();
+await Seeder.Seed(roleManager, userManager, dbContext);
 
 app.Run();
