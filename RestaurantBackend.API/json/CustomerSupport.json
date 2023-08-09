@@ -1,0 +1,29 @@
+[
+  {
+    "id": "c1b2a3d4-5678-90e1-f2ab-c3de4f567891",
+    "message": "Customer support message for John Doe",
+    "customerId": "c1b2a3d4-5678-90e1-f2ab-c3de4f567890",
+    "createdBy": "ad12159f-1271-40cd-8bc8-bd972008fe10",
+    "createdAt": "2023-08-08T12:00:00",
+    "updatedBy": "14ee58ab-020a-4691-a527-fabfe6201312",
+    "updatedAt": "2023-08-08T12:00:00"
+  },
+  {
+    "id": "ed6640c8-e5de-4e49-bc10-2f9fb3da7326",
+    "message": "Customer support message for Timi Bullseye",
+    "customerId": "ed6640c8-e5de-4e49-bc10-2f9fb3da7325",
+    "createdBy": "a5f30335-5d5b-4ef3-8add-c2a0c4138672",
+    "createdAt": "2023-08-08T14:00:00",
+    "updatedBy": "609b90b2-f22d-4adb-8a29-98ae1b943e58",
+    "updatedAt": "2023-08-08T14:30:00"
+  },
+  {
+    "id": "1d82a5a0-99c9-4e44-bde6-8edd4c6b689c",
+    "message": "Customer support message for Ogidan Emmanuel",
+    "customerId": "1d82a5a0-99c9-4e44-bde6-8edd4c6b689d",
+    "createdBy": "6a64435b-6ef2-4f17-8ed3-b9ca3130c7af",
+    "createdAt": "2023-08-09T14:00:00",
+    "updatedBy": "1d82a5a0-99c9-4e44-bde6-8edd4c6b689d",
+    "updatedAt": "2023-08-09T14:30:00"
+  }
+]

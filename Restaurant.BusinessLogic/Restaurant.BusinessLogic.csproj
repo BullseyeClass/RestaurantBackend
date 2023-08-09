@@ -7,11 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Services\Implementations\" />
-    <Folder Include="Services\Interfaces\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.20" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.5.0" />
@@ -19,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Restaurant.Data\Restaurant.Data.csproj" />
+    <ProjectReference Include="..\Restaurant.DTO\Restaurant.DTO.csproj" />
   </ItemGroup>
 
 </Project>

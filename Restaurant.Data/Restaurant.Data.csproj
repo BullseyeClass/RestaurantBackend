@@ -8,8 +8,6 @@
 
   <ItemGroup>
     <Folder Include="EntityConfiguration\" />
-    <Folder Include="Seeed\" />
-    <Folder Include="Repository\" />
   </ItemGroup>
 
   <ItemGroup>
