@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="EntityConfiguration\" />
-    <Folder Include="Seeed\" />
   </ItemGroup>
 
   <ItemGroup>

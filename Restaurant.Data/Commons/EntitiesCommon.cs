@@ -11,6 +11,6 @@ namespace Restaurant.Data.Commons
         public Guid CreatedBy { get; set; }
         public DateTime CreatedAt { get; set; }
         public Guid UpdatedBy { get; set;}
-        public Guid UpdatedAt { get; set;}
+        public DateTime UpdatedAt { get; set;}
     }
 }

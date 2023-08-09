@@ -1,0 +1,55 @@
+[
+  {
+    "id": "c1b2a3d4-5678-90e1-f2ab-c3de4f567890",
+    "userName": "john.doe",
+    "email": "john.doe@example.com",
+    "firstName": "John",
+    "lastName": "Doe",
+    "middleName": "M",
+    "phoneNumber": "1234567890",
+    "emailConfirmed": true,
+    "phoneNumberConfirmed": true,
+    "twoFactorEnabled": false,
+    "lockoutEnabled": true,
+    "accessFailedCount": 0,
+    "customerSupport": null,
+    "addresses": null,
+    "orders": null,
+    "wishLists": null
+  },
+  {
+    "id": "ed6640c8-e5de-4e49-bc10-2f9fb3da7325",
+    "userName": "timi.bullseye",
+    "email": "timi@example.com",
+    "firstName": "Timi",
+    "lastName": "Bullseye",
+    "phoneNumber": "9876543210",
+    "emailConfirmed": true,
+    "phoneNumberConfirmed": true,
+    "twoFactorEnabled": false,
+    "lockoutEnabled": true,
+    "accessFailedCount": 0,
+    "customerSupport": null,
+    "addresses": null,
+    "orders": null,
+    "wishLists": null
+  },
+  {
+    "id": "1d82a5a0-99c9-4e44-bde6-8edd4c6b689d",
+    "userName": "ogidan.emmanuel",
+    "email": "ogidan@example.com",
+    "firstName": "Ogidan",
+    "lastName": "Emmanuel",
+    "phoneNumber": "1234567890",
+    "emailConfirmed": true,
+    "phoneNumberConfirmed": true,
+    "twoFactorEnabled": false,
+    "lockoutEnabled": true,
+    "accessFailedCount": 0,
+    "customerSupport": null,
+    "addresses": null,
+    "orders": null,
+    "wishLists": null
+  }
+
+]
