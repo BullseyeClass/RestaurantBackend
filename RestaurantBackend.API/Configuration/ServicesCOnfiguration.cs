@@ -1,5 +1,3 @@
-﻿
-using BootCamp.BusinessLogic.Services.Implementations;
 using Microsoft.Extensions.DependencyInjection;
 using Restaurant.BusinessLogic.Services.Implementations;
 using Restaurant.BusinessLogic.Services.Interfaces;
@@ -14,8 +12,9 @@ namespace Restaurant.API.Configuration
         {
             services.AddScoped(typeof(IGenericRepo<>), typeof(GenericRepo<>));
             services.AddScoped<ICustomerService, CustomerService>()
-                .AddScoped<IAuthentication,  Authentication>()
+                .AddScoped<IAuthentication, Authentication>()
                 .AddScoped<ITokenGenerator, TokenGenerator>()
+                .AddScoped<IAddProductToCart, AddProductToCart>()
                 .AddScoped<IWishListService, WishListService>();
         }
     }
