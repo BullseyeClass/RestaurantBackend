@@ -1,6 +1,6 @@
 ﻿using Restaurant.Data.Entities;
 
-namespace BootCamp.BusinessLogic.Services.Interfaces
+namespace Restaurant.BusinessLogic.Services.Interfaces
 {
     public interface ITokenGenerator
     {

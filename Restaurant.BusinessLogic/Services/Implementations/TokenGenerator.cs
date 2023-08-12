@@ -1,7 +1,7 @@
-﻿using BootCamp.BusinessLogic.Services.Interfaces;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Restaurant.BusinessLogic.Services.Interfaces;
 using Restaurant.Data.Entities;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;

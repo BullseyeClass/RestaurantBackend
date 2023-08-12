@@ -1,8 +1,8 @@
-﻿using BootCamp.Data.Repository.Interface;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Restaurant.Data.Context;
+using Restaurant.Data.Repository.Interface;
 
-namespace BootCamp.Data.Repository.Implementation
+namespace Restaurant.Data.Repository.Implementation
 {
     public class GenericRepo<T> : IGenericRepo<T> where T : class
     {

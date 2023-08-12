@@ -12,7 +12,7 @@ namespace Restaurant.API.Configuration
         {
 
                 services.AddDbContext<MyAppContext>(options =>
-               options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+               options.UseSqlite(configuration.GetConnectionString("DefaultConnection")));
    
           
         }

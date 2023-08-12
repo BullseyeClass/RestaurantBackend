@@ -1,6 +1,5 @@
-﻿using BootCamp.BusinessLogic.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Restaurant.BusinessLogic.Services.Interfaces;
 using Restaurant.DTO;
 using Restaurant.DTO.Request;
 using Restaurant.DTO.Response;
