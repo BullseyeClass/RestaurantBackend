@@ -1,5 +1,4 @@
-﻿using BootCamp.Data.Repository.Implementation;
-using BootCamp.Data.Repository.Interface;
+﻿
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Restaurant.Data.Entities;
@@ -13,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Restaurant.Data.Context;
 using Restaurant.BusinessLogic.Services.Interfaces;
+using Restaurant.Data.Repository.Interface;
 
 namespace Restaurant.BusinessLogic.Services.Implementations
 {
