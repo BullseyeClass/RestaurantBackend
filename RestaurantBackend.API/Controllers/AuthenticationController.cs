@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Restaurant.DTO.Request;
 using Restaurant.DTO.Response;
 using Restaurant.DTO;
-using BootCamp.BusinessLogic.Services.Interfaces;
+using Restaurant.BusinessLogic.Services.Interfaces;
 
 namespace Restaurant.API.Controllers
 {
