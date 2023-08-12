@@ -1,7 +1,7 @@
-﻿using BootCamp.BusinessLogic.Services.Interfaces;
-using BootCamp.Data.Repository.Interface;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
+using Restaurant.BusinessLogic.Services.Interfaces;
 using Restaurant.Data.Entities;
+using Restaurant.Data.Repository.Interface;
 using Restaurant.DTO;
 using Restaurant.DTO.Request;
 using Restaurant.DTO.Response;

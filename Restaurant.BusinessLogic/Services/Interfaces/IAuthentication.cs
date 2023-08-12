@@ -2,7 +2,7 @@
 using Restaurant.DTO.Request;
 using Restaurant.DTO.Response;
 
-namespace BootCamp.BusinessLogic.Services.Interfaces
+namespace Restaurant.BusinessLogic.Services.Interfaces
 {
     public interface IAuthentication
     {

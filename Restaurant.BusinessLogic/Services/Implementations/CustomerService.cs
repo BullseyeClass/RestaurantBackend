@@ -1,6 +1,6 @@
-﻿using BootCamp.BusinessLogic.Services.Interfaces;
-using BootCamp.Data.Repository.Interface;
+﻿using Restaurant.Data.Repository.Interface;
 using Microsoft.AspNetCore.Identity;
+using Restaurant.BusinessLogic.Services.Interfaces;
 using Restaurant.Data.Entities;
 using Restaurant.DTO;
 using Restaurant.DTO.Request;
@@ -28,7 +28,7 @@ namespace Restaurant.BusinessLogic.Services.Implementations
                 FirstName = traineeRegistrationDTO.FirstName,
                 LastName = traineeRegistrationDTO.LastName,
                 Email = traineeRegistrationDTO.Email,
-                UserName = traineeRegistrationDTO.Email.Split('@')[0], 
+                UserName = traineeRegistrationDTO.Email.Split('@')[0],
             };
 
             IdentityResult result = await _userManager.CreateAsync(trainee, traineeRegistrationDTO.Password);
@@ -40,7 +40,7 @@ namespace Restaurant.BusinessLogic.Services.Implementations
                 {
                     Id = trainee.Id,
                     Email = traineeRegistrationDTO.Email,
-                    FullName = $"{trainee.FirstName} {trainee.LastName}", 
+                    FullName = $"{trainee.FirstName} {trainee.LastName}",
                     Token = emailToken
                 };
 
@@ -53,5 +53,24 @@ namespace Restaurant.BusinessLogic.Services.Implementations
             }
         }
 
+
+        public async Task<GenericResponse<ReturningUserByIdDTO>> GettingUserById(string userId)
+        {
+            Customer customer = await _userManager.FindByIdAsync(userId);
+
+            ReturningUserByIdDTO returningUserByIdDTO = new()
+            {
+                FirstName = customer.FirstName,
+                LastName = customer.LastName,
+                MiddleName = customer.MiddleName,
+            };
+            if (customer != null)
+            {
+                return GenericResponse<ReturningUserByIdDTO>.SuccessResponse(returningUserByIdDTO, "Returning Customer Details");
+            }
+
+            return GenericResponse<ReturningUserByIdDTO>.ErrorResponse("Customer Details empty");
+        }
     }
 }
+

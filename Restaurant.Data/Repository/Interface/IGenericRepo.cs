@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BootCamp.Data.Repository.Interface
+namespace Restaurant.Data.Repository.Interface
 {
     public interface IGenericRepo<T> where T : class
     {
