@@ -3,6 +3,7 @@ using Restaurant.BusinessLogic.Services.Interfaces;
 using Restaurant.DTO.Request;
 using Restaurant.DTO.Response;
 using Restaurant.DTO;
+using Restaurant.BusinessLogic.Services.Implementations;
 
 namespace Restaurant.API.Controllers
 {
@@ -14,19 +15,27 @@ namespace Restaurant.API.Controllers
             _addProductToCart = addProductToCart;
         }
 
-        [HttpPost("AddProductToCart")]
-        [ProducesResponseType(typeof(GenericResponse<CustomerRegistrationResponseDTO>), 200)]
 
-        public async Task<IActionResult> RegisterAsync(Guid id, string email)
+        [HttpPost("AddProductToCart/{ProductId}")]
+        public async Task<IActionResult> AddingProductToCart(Guid ProductId, int quantity)
         {
-            var response = await _addProductToCart.AddProductToCartAsync(email, id);
+            var userId = "c1b2a3d4-5678-90e1-f2ab-c3de4f567890";
 
-            if (response.Success)
+            AddingProductToCartRequestDTO model = new()
             {
-                return Ok(response);
+                Quantity= quantity,
+                ProductId = ProductId,
+                CustomerId = Guid.Parse(userId),
+
+            };
+            GenericResponse<string> generic = await _addProductToCart.AddProductToCartAsync(model);
+
+            if (generic != null && generic.Success)
+            {
+                return Ok(generic);
             }
 
-            return BadRequest(response);
+            return BadRequest(generic);
         }
     }
 }

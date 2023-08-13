@@ -19,47 +19,41 @@ namespace Restaurant.BusinessLogic.Services.Implementations
     public class AddProductToCart : IAddProductToCart
     {
         private readonly UserManager<Customer> _userManager;
-        private readonly IGenericRepo<Product> _genericRepo;
-        private readonly MyAppContext _myAppContext;
-        public AddProductToCart(IGenericRepo<Product> genericRepo, UserManager<Customer> userManager, MyAppContext myAppContext)
+        private readonly IGenericRepo<CartItem> _genericRepoCartItem;
+
+        public AddProductToCart(IGenericRepo<CartItem> genericRepo, UserManager<Customer> userManager)
         {
-            _genericRepo = genericRepo;
+            _genericRepoCartItem = genericRepo;
             _userManager = userManager;
-            _myAppContext = myAppContext;
         }
 
-        public async Task<GenericResponse<string>> AddProductToCartAsync(string email, Guid id)
+        public async Task<GenericResponse<string>> AddProductToCartAsync(AddingProductToCartRequestDTO addingProductToCartRequestDTO)
         {
-          
-            var customer = await _userManager.FindByEmailAsync(email);
+
+            var customer = await _userManager.FindByIdAsync(addingProductToCartRequestDTO.CustomerId.ToString());
 
             if (customer != null)
             {
-                Product product = _myAppContext.Products.FirstOrDefault(p => p.Id == id);
-
-                if (product != null)
+               
+                CartItem cartItem = new()
                 {
-                    // Create a CartItem instance
-                    CartItem cartItem = new CartItem
-                    {
-                        Quantity = 1,
-                        Customer = customer,
-                        Product = product,
-                        CreatedAt = DateTime.UtcNow,
-                        CustomerId = Guid.Parse(customer.Id),
-                        ProductId = product.Id,
-                        CreatedBy = Guid.Parse(customer.Id)
-                    };
+                    Quantity = addingProductToCartRequestDTO.Quantity,
+                    Customer = customer,
+                    CreatedAt = DateTime.UtcNow,
+                    CustomerId = Guid.Parse(customer.Id),
+                    ProductId = addingProductToCartRequestDTO.ProductId,
+                    CreatedBy = addingProductToCartRequestDTO.CustomerId
+                };
 
-                    _myAppContext.CartItems.Add(cartItem);
-                    _myAppContext.SaveChanges();
+                bool success = await _genericRepoCartItem.InsertAsync(cartItem);
 
+                if (success)
+                {
                     return GenericResponse<string>.SuccessResponse("successful", "Your Product has been added to cart");
                 }
 
-                return GenericResponse<string>.ErrorResponse("errors", false);
             }
-            return GenericResponse<string>.ErrorResponse("errors", false);
+            return GenericResponse<string>.ErrorResponse("error adding product to cart", false);
         }
     }
 }
