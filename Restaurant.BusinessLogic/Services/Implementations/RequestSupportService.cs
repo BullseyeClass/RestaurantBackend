@@ -9,11 +9,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Restaurant.BusinessLogic.Services.Interfaces;
 
 namespace Restaurant.BusinessLogic.Services.Implementations
 {
 
-    public class RequestSupportService
+    public class RequestSupportService : IRequestSupportService
     {
         private readonly UserManager<Customer> _userManager;
         private readonly IGenericRepo<CustomerSupport> _genericRepo;
