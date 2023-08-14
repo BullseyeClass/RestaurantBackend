@@ -297,42 +297,5 @@ namespace Restaurant.BusinessLogic.Services.Implementations
 
         }
 
-        //public async Task<GenericResponse<List<FilterProductDTO>>> GetAllProduct()
-        //{
-        //    var allProduct = await _genericRepoProduct.GetAllAsync();
-
-        //    if (allProduct != null)
-        //    {
-        //        List<FilterProductDTO> filterProductDTOList = new();
-
-        //        foreach (var product in allProduct)
-        //        {
-        //            FilterProductDTO filterProductDTO = new()
-        //            {
-        //                Id = product.Id,
-        //                Name = product.Name,
-        //                Category = product.Category,
-        //                Tag = product.Tag,
-        //                Image = product.Image,
-        //                SKU = product.SKU,
-        //                MostPopular = product.MostPopular,
-        //                BestDeal = product.BestDeal,
-        //                Price = product.Price,
-        //                DiscountedPrice = product.DiscountedPrice,
-        //                ProductInfo = product.ProductInfo,
-        //                ReturnPolicy = product.ReturnPolicy,
-        //                DeliveryInfo = product.DeliveryInfo,
-        //                QuantityInStock = product.QuantityInStock
-        //            };
-
-        //            filterProductDTOList.Add(filterProductDTO);
-        //        }
-
-        //        return GenericResponse<List<FilterProductDTO>>.SuccessResponse(filterProductDTOList, "Successful");
-        //    }
-
-        //    return GenericResponse<List<FilterProductDTO>>.ErrorResponse("No Product Found");
-        //}
-
     }
 }
