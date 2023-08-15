@@ -16,7 +16,9 @@ namespace Restaurant.API.Configuration
                 .AddScoped<IAuthentication, Authentication>()
                 .AddScoped<ITokenGenerator, TokenGenerator>()
                 .AddScoped<IAddProductToCart, AddProductToCart>()
-                .AddScoped<IWishListService, WishListService>();
+                .AddScoped<IWishListService, WishListService>()
+                .AddScoped<IProductsFiltering, ProductsFiltering>()
+              .AddScoped<IRequestSupportService, RequestSupportService>();
         }
     }
 }
