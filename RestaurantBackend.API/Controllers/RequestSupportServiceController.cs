@@ -21,16 +21,14 @@ namespace Restaurant.API.Controllers
 
         [HttpPost("RequestSupport")]
         [ProducesResponseType(typeof(GenericResponse<RequestingCustomerSupportDTO>), 200)]
-        public async Task<ActionResult> RequestSupport(IFormCollection collection)
+        public async Task<ActionResult> RequestSupport(string message)
         {
             var userId = "c1b2a3d4-5678-90e1-f2ab-c3de4f567890";
 
             RequestingCustomerSupportDTO support = new()
             {
                 CustomerId = userId,
-
-
-
+                Message = message
             };
 
             GenericResponse<string> generic = await _request.RequestSupportAsync(support);
