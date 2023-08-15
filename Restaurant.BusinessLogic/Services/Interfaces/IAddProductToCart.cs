@@ -1,4 +1,5 @@
 ﻿using Restaurant.DTO;
+using Restaurant.DTO.Request;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace Restaurant.BusinessLogic.Services.Interfaces
 {
     public interface IAddProductToCart
     {
-        Task<GenericResponse<string>> AddProductToCartAsync(string email, Guid id);
+        Task<GenericResponse<string>> AddProductToCartAsync(AddingProductToCartRequestDTO addingProductToCartRequestDTO);
     }
 }
