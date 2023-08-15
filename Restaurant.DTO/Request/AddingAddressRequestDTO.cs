@@ -14,7 +14,7 @@ namespace Restaurant.DTO.Request
         public string State { get; set; } = string.Empty;
         public int PostalCode { get; set; } = 0;
         public string Country { get; set; } = string.Empty;
-        public virtual Customer Customer { get; set; }
+        public  Customer Customer { get; set; }
         public Guid CustomerId { get; set; }
         public bool IsShippingAddress { get; set; }
     }

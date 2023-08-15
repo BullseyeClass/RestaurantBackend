@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Restaurant.BusinessLogic.Services.Interfaces;
 using Restaurant.Data.Entities;
 using Restaurant.Data.Repository.Interface;
 using Restaurant.DTO;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Restaurant.BusinessLogic.Services.Implementations
 {
-    public class AddressService
+    public class AddressService : IAddressService
     {
         private readonly UserManager<Customer> _userManager;
         private readonly IGenericRepo<Address> _genericRepoAddress;
@@ -22,7 +23,7 @@ namespace Restaurant.BusinessLogic.Services.Implementations
             _genericRepoAddress = genericRepoAddress;
         }
 
-        public async Task<GenericResponse<AddingAddressResponseDTO>> AddProductToCartAsync(AddingAddressRequestDTO addingAddressRequestDTO)
+        public async Task<GenericResponse<AddingAddressResponseDTO>> AddAddressAsync(AddingAddressRequestDTO addingAddressRequestDTO)
         {
             var user = await _userManager.FindByIdAsync(addingAddressRequestDTO.CustomerId.ToString());
 
