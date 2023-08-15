@@ -28,6 +28,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Restaurant.BusinessLogic\Restaurant.BusinessLogic.csproj" />
     <ProjectReference Include="..\Restaurant.Data\Restaurant.Data.csproj" />
+    <ProjectReference Include="..\Restaurant.DTO\Restaurant.DTO.csproj" />
   </ItemGroup>
 
 </Project>
