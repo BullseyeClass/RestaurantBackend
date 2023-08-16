@@ -17,7 +17,7 @@ builder.Services.ConfigurationIdentity();
 builder.Services.AddSwaggerConfiguration();
 builder.Services.AddServices();
 builder.Services.AddDbConfig(builder.Configuration);
-
+builder.Services.AddCloudinaryConfig(builder.Configuration);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
