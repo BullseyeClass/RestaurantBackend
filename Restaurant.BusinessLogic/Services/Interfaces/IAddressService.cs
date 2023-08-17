@@ -12,5 +12,8 @@ namespace Restaurant.BusinessLogic.Services.Interfaces
     public interface IAddressService
     {
         Task<GenericResponse<AddingAddressResponseDTO>> AddAddressAsync(AddingAddressRequestDTO addingAddressRequestDTO);
+        Task<GenericResponse<List<AddingAddressResponseDTO>>> GetAllAddressAsync();
+        Task<GenericResponse<string>> DeleteAddressAsync(DeleteAddressRequestDTO deleteAddressRequestDTO);
+        Task<GenericResponse<UpdateAddressResponseDTO>> UpdateAddressAsync(UpdateAddressRequestDTO updateAddressRequestDTO);
     }
 }

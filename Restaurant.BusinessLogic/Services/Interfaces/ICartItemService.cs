@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 
 namespace Restaurant.BusinessLogic.Services.Interfaces
 {
-    public interface IAddProductToCart
+    public interface ICartItemService
     {
         Task<GenericResponse<string>> AddProductToCartAsync(AddingProductToCartRequestDTO addingProductToCartRequestDTO);
+        Task<GenericResponse<string>> DeleteProductFromCartAsync(DeleteCartItemRequestDTO deleteCartItemRequestDTO);
+        Task<GenericResponse<string>> UpdateCartAsync(EditCartItemRequestDTO editCartItemRequestDTO);
     }
 }

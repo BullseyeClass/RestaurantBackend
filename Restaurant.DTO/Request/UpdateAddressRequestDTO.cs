@@ -1,21 +1,25 @@
-﻿using Restaurant.Data.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace Restaurant.DTO.Response
+namespace Restaurant.DTO.Request
 {
-    public class AddingAddressResponseDTO
+    public class UpdateAddressRequestDTO
     {
-        public Guid Id { get; set; } 
+        [JsonIgnore]
+        public Guid AddressId { get; set; }
         public string Street { get; set; } = string.Empty;
         public string City { get; set; } = string.Empty;
         public string State { get; set; } = string.Empty;
         public int PostalCode { get; set; } = 0;
         public string Country { get; set; } = string.Empty;
-        public Guid CustomerId { get; set; }
         public bool IsShippingAddress { get; set; }
+        [JsonIgnore]
+        public Guid UpdatedBy { get; set; }
+        [JsonIgnore]
+        public DateTime UpdatedAt { get; set; }
     }
 }

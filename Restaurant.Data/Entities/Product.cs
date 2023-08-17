@@ -9,7 +9,7 @@ namespace Restaurant.Data.Entities
 {
     public class Product : EntitiesCommon
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
         public string Name { get; set; }
         public string Category { get; set; }
         public string Tag { get; set; }
