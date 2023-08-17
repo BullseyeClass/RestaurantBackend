@@ -14,7 +14,7 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpGet("FilterAllProduct")]
-        [ProducesResponseType(typeof(GenericResponse<CustomerRegistrationResponseDTO>), 200)]
+        [ProducesResponseType(typeof(GenericResponse<FilterProductDTO>), 200)]
         public async Task<IActionResult> FilterAllProduct()
         {
             var response = await _productsFiltering.GetAllProduct();
@@ -28,7 +28,7 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpGet("FilterBestDealProduct")]
-        [ProducesResponseType(typeof(GenericResponse<CustomerRegistrationResponseDTO>), 200)]
+        [ProducesResponseType(typeof(GenericResponse<FilterProductDTO>), 200)]
         public async Task<IActionResult> FilterBestDealProduct()
         {
             var response = await _productsFiltering.GetBestDealProduct();
@@ -42,7 +42,7 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpGet("GetMostPopularProduct")]
-        [ProducesResponseType(typeof(GenericResponse<CustomerRegistrationResponseDTO>), 200)]
+        [ProducesResponseType(typeof(GenericResponse<FilterProductDTO>), 200)]
         public async Task<IActionResult> GetMostPopularProduct()
         {
             var response = await _productsFiltering.GetMostPopularProduct();
@@ -56,7 +56,7 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpGet("GetAllVegetableProduct")]
-        [ProducesResponseType(typeof(GenericResponse<CustomerRegistrationResponseDTO>), 200)]
+        [ProducesResponseType(typeof(GenericResponse<FilterProductDTO>), 200)]
         public async Task<IActionResult> GetAllVegetableProduct()
         {
             var response = await _productsFiltering.GetAllVegetableProduct();
@@ -70,7 +70,7 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpGet("GetAllFishandSeafoodProduct")]
-        [ProducesResponseType(typeof(GenericResponse<CustomerRegistrationResponseDTO>), 200)]
+        [ProducesResponseType(typeof(GenericResponse<FilterProductDTO>), 200)]
         public async Task<IActionResult> GetAllFishandSeafoodProduct()
         {
             var response = await _productsFiltering.GetAllFishandSeafoodProduct();
@@ -84,7 +84,7 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpGet("GetAllDairyandEggsProduct")]
-        [ProducesResponseType(typeof(GenericResponse<CustomerRegistrationResponseDTO>), 200)]
+        [ProducesResponseType(typeof(GenericResponse<FilterProductDTO>), 200)]
         public async Task<IActionResult> GetAllDairyandEggsProduct()
         {
             var response = await _productsFiltering.GetAllDairyandEggsProduct();
@@ -98,7 +98,7 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpGet("GetAllBakeryProduct")]
-        [ProducesResponseType(typeof(GenericResponse<CustomerRegistrationResponseDTO>), 200)]
+        [ProducesResponseType(typeof(GenericResponse<FilterProductDTO>), 200)]
         public async Task<IActionResult> GetAllBakeryProduct()
         {
             var response = await _productsFiltering.GetAllBakeryProduct();
