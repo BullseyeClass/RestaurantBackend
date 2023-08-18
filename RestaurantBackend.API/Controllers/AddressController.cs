@@ -8,6 +8,8 @@ using Restaurant.BusinessLogic.Services.Implementations;
 
 namespace Restaurant.API.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class AddressController : ControllerBase
     {
         public readonly IAddressService _addressService;

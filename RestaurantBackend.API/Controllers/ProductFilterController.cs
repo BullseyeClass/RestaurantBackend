@@ -5,6 +5,8 @@ using Restaurant.DTO;
 
 namespace Restaurant.API.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class ProductFilterController : ControllerBase
     {
         private readonly IProductsFiltering _productsFiltering;
