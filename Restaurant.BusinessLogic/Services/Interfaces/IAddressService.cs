@@ -15,5 +15,6 @@ namespace Restaurant.BusinessLogic.Services.Interfaces
         Task<GenericResponse<List<AddingAddressResponseDTO>>> GetAllAddressAsync();
         Task<GenericResponse<string>> DeleteAddressAsync(DeleteAddressRequestDTO deleteAddressRequestDTO);
         Task<GenericResponse<UpdateAddressResponseDTO>> UpdateAddressAsync(UpdateAddressRequestDTO updateAddressRequestDTO);
+        Task<GenericResponse<AddingAddressResponseDTO>> GetAddressByIdAsync(Guid Id);
     }
 }

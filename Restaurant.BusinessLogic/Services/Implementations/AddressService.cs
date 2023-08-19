@@ -89,7 +89,31 @@ namespace Restaurant.BusinessLogic.Services.Implementations
                 };
                 return GenericResponse<List<AddingAddressResponseDTO>>.SuccessResponse(filteraddressDTOList, "Successful");
             }
-            return GenericResponse<List<AddingAddressResponseDTO>>.ErrorResponse("No Product Found");
+            return GenericResponse<List<AddingAddressResponseDTO>>.ErrorResponse("No Address Found");
+
+        }
+
+        public async Task<GenericResponse<AddingAddressResponseDTO>> GetAddressByIdAsync(Guid Id)
+        {
+            Address address = await _genericRepoAddress.GetByIdAysnc(Id);
+
+            if (address != null)
+            {
+                AddingAddressResponseDTO filteraddressDTO = new()
+                {
+                    Id = address.Id,
+                    Street = address.Street,
+                    City = address.City,
+                    State = address.State,
+                    PostalCode = address.PostalCode,
+                    Country = address.Country,
+                    CustomerId = address.CustomerId,
+                    IsShippingAddress = address.IsShippingAddress
+
+                };
+                return GenericResponse<AddingAddressResponseDTO>.SuccessResponse(filteraddressDTO, "Successful");
+            }
+            return GenericResponse<AddingAddressResponseDTO>.ErrorResponse("No Address Found");
 
         }
 

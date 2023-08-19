@@ -7,6 +7,8 @@ using Restaurant.BusinessLogic.Services.Implementations;
 
 namespace Restaurant.API.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class CartItem : ControllerBase
     {
         public readonly ICartItemService _addProductToCart;

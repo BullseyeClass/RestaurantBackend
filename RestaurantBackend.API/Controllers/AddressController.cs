@@ -8,6 +8,8 @@ using Restaurant.BusinessLogic.Services.Implementations;
 
 namespace Restaurant.API.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class AddressController : ControllerBase
     {
         public readonly IAddressService _addressService;
@@ -38,6 +40,20 @@ namespace Restaurant.API.Controllers
         public async Task<IActionResult> GetAllAddressAsync()
         {
             var response = await _addressService.GetAllAddressAsync();
+
+            if (response.Success)
+            {
+                return Ok(response.Data);
+            }
+
+            return BadRequest(response);
+        }
+
+        [HttpGet("GetAddressById/{Id}")]
+        [ProducesResponseType(typeof(GenericResponse<AddingAddressResponseDTO>), 200)]
+        public async Task<IActionResult> GetAddressByIdAsync(Guid Id)
+        {
+            var response = await _addressService.GetAddressByIdAsync(Id);
 
             if (response.Success)
             {

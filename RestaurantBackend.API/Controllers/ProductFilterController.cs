@@ -5,6 +5,8 @@ using Restaurant.DTO;
 
 namespace Restaurant.API.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class ProductFilterController : ControllerBase
     {
         private readonly IProductsFiltering _productsFiltering;
@@ -13,7 +15,7 @@ namespace Restaurant.API.Controllers
             _productsFiltering = productsFiltering;
         }
 
-        [HttpGet("FilterAllProduct")]
+        [HttpGet("AllProduct")]
         [ProducesResponseType(typeof(GenericResponse<FilterProductDTO>), 200)]
         public async Task<IActionResult> FilterAllProduct()
         {
@@ -27,7 +29,7 @@ namespace Restaurant.API.Controllers
             return BadRequest(response);
         }
 
-        [HttpGet("FilterBestDealProduct")]
+        [HttpGet("BestDealProduct")]
         [ProducesResponseType(typeof(GenericResponse<FilterProductDTO>), 200)]
         public async Task<IActionResult> FilterBestDealProduct()
         {
@@ -41,7 +43,7 @@ namespace Restaurant.API.Controllers
             return BadRequest(response);
         }
 
-        [HttpGet("GetMostPopularProduct")]
+        [HttpGet("MostPopularProduct")]
         [ProducesResponseType(typeof(GenericResponse<FilterProductDTO>), 200)]
         public async Task<IActionResult> GetMostPopularProduct()
         {
@@ -55,7 +57,7 @@ namespace Restaurant.API.Controllers
             return BadRequest(response);
         }
 
-        [HttpGet("GetAllVegetableProduct")]
+        [HttpGet("VegetableProduct")]
         [ProducesResponseType(typeof(GenericResponse<FilterProductDTO>), 200)]
         public async Task<IActionResult> GetAllVegetableProduct()
         {
@@ -69,7 +71,7 @@ namespace Restaurant.API.Controllers
             return BadRequest(response);
         }
 
-        [HttpGet("GetAllFishandSeafoodProduct")]
+        [HttpGet("FishandSeafoodProduct")]
         [ProducesResponseType(typeof(GenericResponse<FilterProductDTO>), 200)]
         public async Task<IActionResult> GetAllFishandSeafoodProduct()
         {
@@ -83,7 +85,7 @@ namespace Restaurant.API.Controllers
             return BadRequest(response);
         }
 
-        [HttpGet("GetAllDairyandEggsProduct")]
+        [HttpGet("DairyandEggsProduct")]
         [ProducesResponseType(typeof(GenericResponse<FilterProductDTO>), 200)]
         public async Task<IActionResult> GetAllDairyandEggsProduct()
         {
@@ -97,7 +99,7 @@ namespace Restaurant.API.Controllers
             return BadRequest(response);
         }
 
-        [HttpGet("GetAllBakeryProduct")]
+        [HttpGet("BakeryProduct")]
         [ProducesResponseType(typeof(GenericResponse<FilterProductDTO>), 200)]
         public async Task<IActionResult> GetAllBakeryProduct()
         {
