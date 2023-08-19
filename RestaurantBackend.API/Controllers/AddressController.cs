@@ -49,6 +49,20 @@ namespace Restaurant.API.Controllers
             return BadRequest(response);
         }
 
+        [HttpGet("GetAddressById/{Id}")]
+        [ProducesResponseType(typeof(GenericResponse<AddingAddressResponseDTO>), 200)]
+        public async Task<IActionResult> GetAddressByIdAsync(Guid Id)
+        {
+            var response = await _addressService.GetAddressByIdAsync(Id);
+
+            if (response.Success)
+            {
+                return Ok(response.Data);
+            }
+
+            return BadRequest(response);
+        }
+
 
         [HttpDelete("DeleteAddress/{AddressId}")]
         [ProducesResponseType(typeof(GenericResponse<string>), 200)]
