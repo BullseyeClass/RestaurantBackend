@@ -15,10 +15,11 @@ namespace Restaurant.API.Configuration
             services.AddScoped<ICustomerService, CustomerService>()
                 .AddScoped<IAuthentication, Authentication>()
                 .AddScoped<ITokenGenerator, TokenGenerator>()
-                .AddScoped<IAddProductToCart, AddProductToCart>()
+                .AddScoped<ICartItemService, CartItemService>()
                 .AddScoped<IWishListService, WishListService>()
                 .AddScoped<IProductsFiltering, ProductsFiltering>()
-              .AddScoped<IRequestSupportService, RequestSupportService>();
+              .AddScoped<IRequestSupportService, RequestSupportService>()
+              .AddScoped<IAddressService, AddressService>();
         }
     }
 }

@@ -16,12 +16,12 @@ using Restaurant.Data.Repository.Interface;
 
 namespace Restaurant.BusinessLogic.Services.Implementations
 {
-    public class AddProductToCart : IAddProductToCart
+    public class CartItemService : ICartItemService
     {
         private readonly UserManager<Customer> _userManager;
         private readonly IGenericRepo<CartItem> _genericRepoCartItem;
 
-        public AddProductToCart(IGenericRepo<CartItem> genericRepo, UserManager<Customer> userManager)
+        public CartItemService(IGenericRepo<CartItem> genericRepo, UserManager<Customer> userManager)
         {
             _genericRepoCartItem = genericRepo;
             _userManager = userManager;
@@ -34,7 +34,7 @@ namespace Restaurant.BusinessLogic.Services.Implementations
 
             if (customer != null)
             {
-               
+
                 CartItem cartItem = new()
                 {
                     Quantity = addingProductToCartRequestDTO.Quantity,
@@ -54,6 +54,39 @@ namespace Restaurant.BusinessLogic.Services.Implementations
 
             }
             return GenericResponse<string>.ErrorResponse("error adding product to cart", false);
+        }
+
+        public async Task<GenericResponse<string>> DeleteProductFromCartAsync(DeleteCartItemRequestDTO deleteCartItemRequestDTO)
+        {
+            var CartItemExist = await _genericRepoCartItem.GetByIdAysnc(deleteCartItemRequestDTO.CartItemId);
+
+            if (CartItemExist != null)
+            {
+                await _genericRepoCartItem.DeleteAsync(CartItemExist);
+
+                return GenericResponse<string>.SuccessResponse("Cart Item Deleted Sucessfully", "Successful");
+            }
+            return GenericResponse<string>.ErrorResponse("No Address Found");
+
+        }
+
+        public async Task<GenericResponse<string>> UpdateCartAsync(EditCartItemRequestDTO editCartItemRequestDTO)
+        {
+            var cartItemExist = await _genericRepoCartItem.GetByIdAysnc(editCartItemRequestDTO.CartItemId);
+
+            if (cartItemExist != null)
+            {
+                cartItemExist.Quantity = editCartItemRequestDTO.Quantity;
+                cartItemExist.UpdatedAt = editCartItemRequestDTO.UpdatedAt;
+                cartItemExist.UpdatedBy = editCartItemRequestDTO.UpdatedBy;
+
+                await _genericRepoCartItem.UpdateAsync(cartItemExist);
+
+                return GenericResponse<string>.SuccessResponse("Cart Item Edited Successfully", "Successful");
+
+            }
+            return GenericResponse<string>.ErrorResponse("No Cart Item Found");
+
         }
     }
 }
