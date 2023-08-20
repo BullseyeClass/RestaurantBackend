@@ -29,6 +29,20 @@ namespace Restaurant.API.Controllers
             return BadRequest(response);
         }
 
+        [HttpGet("ProductById/{ProductId}")]
+        [ProducesResponseType(typeof(GenericResponse<GetProductByIdResponseDTO>), 200)]
+        public async Task<IActionResult> GetProductById(Guid ProductId)
+        {
+            var response = await _productsFiltering.GetProductByIdAsync(ProductId);
+
+            if (response.Success)
+            {
+                return Ok(response.Data);
+            }
+
+            return BadRequest(response);
+        }
+
         [HttpGet("BestDealProduct")]
         [ProducesResponseType(typeof(GenericResponse<FilterProductDTO>), 200)]
         public async Task<IActionResult> FilterBestDealProduct()
