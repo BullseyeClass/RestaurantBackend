@@ -2,6 +2,7 @@
 using Restaurant.Data.Entities;
 using Restaurant.Data.Repository.Interface;
 using Restaurant.DTO;
+using Restaurant.DTO.Request;
 using Restaurant.DTO.Response;
 using System;
 using System.Collections.Generic;
@@ -295,6 +296,31 @@ namespace Restaurant.BusinessLogic.Services.Implementations
             }
             return GenericResponse<List<FilterProductDTO>>.ErrorResponse("No Product Found");
 
+        }
+
+        public async Task<GenericResponse<GetProductByIdResponseDTO>> GetProductByIdAsync(Guid guid)
+        {
+            var ProductItem = await _genericRepoProduct.GetByIdAysnc(guid);
+
+            if (ProductItem != null)
+            {
+                var product = new GetProductByIdResponseDTO()
+                {
+                    Id = ProductItem.Id,
+                    Name = ProductItem.Name,
+                    DeliveryInfo = ProductItem.DeliveryInfo,
+                    SKU = ProductItem.SKU,
+                    DiscountedPrice = ProductItem.DiscountedPrice,
+                    Image = ProductItem.Image,
+                    Price = ProductItem.Price,
+                    ProductInfo = ProductItem.ProductInfo,
+                    QuantityInStock = ProductItem.QuantityInStock,
+                    ReturnPolicy = ProductItem.ReturnPolicy
+                };
+
+                return GenericResponse<GetProductByIdResponseDTO>.SuccessResponse(product, "Returning Product Details");
+            }
+            return GenericResponse<GetProductByIdResponseDTO>.ErrorResponse("Product not found");
         }
 
     }
