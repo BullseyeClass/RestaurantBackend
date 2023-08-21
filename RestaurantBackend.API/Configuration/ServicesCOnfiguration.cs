@@ -19,7 +19,8 @@ namespace Restaurant.API.Configuration
                 .AddScoped<IWishListService, WishListService>()
                 .AddScoped<IProductsFiltering, ProductsFiltering>()
               .AddScoped<IRequestSupportService, RequestSupportService>()
-              .AddScoped<IAddressService, AddressService>();
+              .AddScoped<IAddressService, AddressService>()
+              .AddScoped<IGetAllProductID, GetAllProductIDsServices>();
         }
     }
 }
