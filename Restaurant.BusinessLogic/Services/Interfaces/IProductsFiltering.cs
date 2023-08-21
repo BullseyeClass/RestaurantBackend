@@ -1,4 +1,5 @@
 ﻿using Restaurant.DTO;
+using Restaurant.DTO.Request;
 using Restaurant.DTO.Response;
 using System;
 using System.Collections.Generic;
@@ -17,5 +18,6 @@ namespace Restaurant.BusinessLogic.Services.Interfaces
         Task<GenericResponse<List<FilterProductDTO>>> GetAllFishandSeafoodProduct();
         Task<GenericResponse<List<FilterProductDTO>>> GetAllDairyandEggsProduct();
         Task<GenericResponse<List<FilterProductDTO>>> GetAllBakeryProduct();
+        Task<GenericResponse<GetProductByIdResponseDTO>> GetProductByIdAsync(Guid guid);
     }
 }
