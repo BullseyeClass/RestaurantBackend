@@ -21,7 +21,7 @@ namespace Restaurant.BusinessLogic.Services.Implementations
         }
 
 
-        public async Task<GenericResponse<CustomerRegistrationResponseDTO>> RegistrationAsync(CustomerRegistrationDTO traineeRegistrationDTO)
+        public async Task<GenericResponse<CustomerRegistrationDTO>> RegistrationAsync(CustomerRegistrationDTO traineeRegistrationDTO)
         {
             Customer trainee = new Customer()
             {
@@ -37,7 +37,7 @@ namespace Restaurant.BusinessLogic.Services.Implementations
             if (result.Succeeded)
             {
                 var emailToken = await _userManager.GenerateEmailConfirmationTokenAsync(trainee);
-                var registrationResult = new CustomerRegistrationResponseDTO()
+                var registrationResult = new CustomerRegistrationDTO()
                 {
                     Id = trainee.Id,
                     Email = traineeRegistrationDTO.Email,
@@ -45,12 +45,12 @@ namespace Restaurant.BusinessLogic.Services.Implementations
                     Token = emailToken
                 };
 
-                return GenericResponse<CustomerRegistrationResponseDTO>.SuccessResponse(registrationResult, "Registration successful");
+                return GenericResponse<CustomerRegistrationDTO>.SuccessResponse(registrationResult, "Registration successful");
             }
             else
             {
                 string errors = result.Errors.Aggregate(string.Empty, (current, error) => current + (error.Description + Environment.NewLine));
-                return GenericResponse<CustomerRegistrationResponseDTO>.ErrorResponse(errors, false);
+                return GenericResponse<CustomerRegistrationDTO>.ErrorResponse(errors, false);
             }
         }
 
