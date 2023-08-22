@@ -4,6 +4,12 @@ using Restaurant.DTO.Request;
 using Restaurant.DTO.Response;
 using Restaurant.DTO;
 using Restaurant.BusinessLogic.Services.Interfaces;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using Restaurant.Data.Entities;
 
 namespace Restaurant.API.Controllers
 {
@@ -12,10 +18,14 @@ namespace Restaurant.API.Controllers
     public class AuthenticationController : ControllerBase
     {
         private readonly IAuthentication _authenticationService;
+        private readonly UserManager<Customer> _userManager;
+        private readonly IConfiguration _configuration;
 
-        public AuthenticationController(IAuthentication authentication)
+        public AuthenticationController(IAuthentication authentication, UserManager<Customer> userManager, IConfiguration configuration)
         {
             _authenticationService = authentication;
+            _userManager = userManager;
+            _configuration = configuration;
         }
 
         [HttpPost("login")]
@@ -27,7 +37,8 @@ namespace Restaurant.API.Controllers
             {
                 return Ok(response);
             }
-            return BadRequest(response);
+            return BadRequest(response.Message);
         }
+
     }
 }

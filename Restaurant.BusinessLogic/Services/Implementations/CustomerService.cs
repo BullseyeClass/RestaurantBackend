@@ -29,6 +29,7 @@ namespace Restaurant.BusinessLogic.Services.Implementations
                 LastName = traineeRegistrationDTO.LastName,
                 Email = traineeRegistrationDTO.Email,
                 UserName = traineeRegistrationDTO.Email.Split('@')[0],
+                EmailConfirmed = true
             };
 
             IdentityResult result = await _userManager.CreateAsync(trainee, traineeRegistrationDTO.Password);

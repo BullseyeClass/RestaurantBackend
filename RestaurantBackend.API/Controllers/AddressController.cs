@@ -5,9 +5,12 @@ using Restaurant.DTO.Response;
 using Restaurant.DTO;
 using Restaurant.Data.Entities;
 using Restaurant.BusinessLogic.Services.Implementations;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace Restaurant.API.Controllers
 {
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AddressController : ControllerBase
@@ -22,7 +25,7 @@ namespace Restaurant.API.Controllers
         [ProducesResponseType(typeof(GenericResponse<AddingAddressResponseDTO>), 200)]
         public async Task<IActionResult> AddAddressAsync([FromBody] AddingAddressRequestDTO userRequest)
         {
-            var userId = "c1b2a3d4-5678-90e1-f2ab-c3de4f567890";
+            var userId = HttpContext.User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier).Value;
 
             userRequest.CustomerId = Guid.Parse(userId);
 
@@ -87,7 +90,7 @@ namespace Restaurant.API.Controllers
         public async Task<IActionResult> UpdateAddressAsync(Guid AddressId, [FromBody]UpdateAddressRequestDTO updateAddressRequestDTO)
         {
 
-            var userId = "c1b2a3d4-5678-90e1-f2ab-c3de4f567890";
+            var userId = HttpContext.User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier).Value;
 
             updateAddressRequestDTO.AddressId = AddressId;
             updateAddressRequestDTO.UpdatedBy = Guid.Parse(userId);
@@ -98,7 +101,7 @@ namespace Restaurant.API.Controllers
 
             if (response.Success)
             {
-                return Ok(response.Data);
+                return Ok(response.Message);
             }
 
             return BadRequest(response);

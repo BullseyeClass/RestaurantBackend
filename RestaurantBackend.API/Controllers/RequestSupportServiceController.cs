@@ -5,6 +5,7 @@ using Restaurant.BusinessLogic.Services.Interfaces;
 using Restaurant.DTO;
 using Restaurant.DTO.Request;
 using Restaurant.DTO.Response;
+using System.Security.Claims;
 
 namespace Restaurant.API.Controllers
 {
@@ -23,7 +24,7 @@ namespace Restaurant.API.Controllers
         [ProducesResponseType(typeof(GenericResponse<RequestingCustomerSupportDTO>), 200)]
         public async Task<ActionResult> RequestSupport(string message)
         {
-            var userId = "c1b2a3d4-5678-90e1-f2ab-c3de4f567890";
+            var userId = HttpContext.User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier).Value;
 
             RequestingCustomerSupportDTO support = new()
             {
