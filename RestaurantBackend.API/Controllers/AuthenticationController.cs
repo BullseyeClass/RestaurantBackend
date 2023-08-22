@@ -37,47 +37,8 @@ namespace Restaurant.API.Controllers
             {
                 return Ok(response);
             }
-            return BadRequest(response);
+            return BadRequest(response.Message);
         }
 
-        //[HttpPost]
-        //[Route("login")]
-        //public async Task<IActionResult> Login([FromBody] LoginRequestDTO loginDTO)
-        //{
-
-        //    var user = await _userManager.FindByEmailAsync(loginDTO.Email);
-
-        //    if (user != null && await _userManager.CheckPasswordAsync(user, loginDTO.Password))
-        //    {
-        //        var userRoles = await _userManager.GetRolesAsync(user);
-        //        var authClaims = new List<Claim>
-        //        {
-        //            new Claim(ClaimTypes.Name, user.UserName),
-        //            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-        //        };
-
-        //        foreach (var userRole in userRoles)
-        //        {
-        //            authClaims.Add(new Claim(ClaimTypes.Role, userRole));
-        //        }
-
-        //        var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWTSettings:Secretkey"]));
-
-        //        var token = new JwtSecurityToken(
-        //            issuer: _configuration["JWTSettings:Issuer"],
-        //            audience: _configuration["JWTSettings:Audience"],
-        //            expires: DateTime.Now.AddHours(3),
-        //            claims: authClaims,
-        //            signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
-        //        );
-
-        //        return Ok(new
-        //        {
-        //            token = new JwtSecurityTokenHandler().WriteToken(token),
-        //            expiration = token.ValidTo
-        //        });
-        //    }
-        //    return Unauthorized();
-        //}
     }
 }

@@ -161,7 +161,7 @@ namespace Restaurant.BusinessLogic.Services.Implementations
                     UpdatedAt= updateAddressRequestDTO.UpdatedAt,
 
                 };
-                return GenericResponse<UpdateAddressResponseDTO>.SuccessResponse(updateAddressResponseDTO, "Successful");
+                return GenericResponse<UpdateAddressResponseDTO>.SuccessResponse(updateAddressResponseDTO, "Address Edited successfully");
 
             }
             return GenericResponse<UpdateAddressResponseDTO>.ErrorResponse("No Address Found");
