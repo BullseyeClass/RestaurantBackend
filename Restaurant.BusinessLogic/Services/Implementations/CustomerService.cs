@@ -37,7 +37,7 @@ namespace Restaurant.BusinessLogic.Services.Implementations
             if (result.Succeeded)
             {
                 var emailToken = await _userManager.GenerateEmailConfirmationTokenAsync(trainee);
-                var registrationResult = new CustomerRegistrationDTO()
+                var registrationResult = new CustomerRegistrationResponseDTO()
                 {
                     Id = trainee.Id,
                     Email = traineeRegistrationDTO.Email,
@@ -45,12 +45,12 @@ namespace Restaurant.BusinessLogic.Services.Implementations
                     Token = emailToken
                 };
 
-                return GenericResponse<CustomerRegistrationDTO>.SuccessResponse(registrationResult, "Registration successful");
+                return GenericResponse<CustomerRegistrationResponseDTO>.SuccessResponse(registrationResult, "Registration successful");
             }
             else
             {
                 string errors = result.Errors.Aggregate(string.Empty, (current, error) => current + (error.Description + Environment.NewLine));
-                return GenericResponse<CustomerRegistrationDTO>.ErrorResponse(errors, false);
+                return GenericResponse<CustomerRegistrationResponseDTO>.ErrorResponse(errors, false);
             }
         }
 
@@ -74,4 +74,3 @@ namespace Restaurant.BusinessLogic.Services.Implementations
         }
     }
 }
-
