@@ -79,5 +79,19 @@ namespace Restaurant.API.Controllers
 
             return BadRequest(response);
         }
+
+        [HttpGet("GetAllActiveCartCount")]
+        [ProducesResponseType(typeof(GenericResponse<int>), 200)]
+
+        public async Task<IActionResult> GetAllActiveCartCount(Guid guids)
+        {
+            var result = await _addProductToCart.GetActiveCartItemAsync(guids);
+
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+            return BadRequest(result);
+        }
     }
 }

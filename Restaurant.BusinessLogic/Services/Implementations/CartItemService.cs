@@ -88,5 +88,41 @@ namespace Restaurant.BusinessLogic.Services.Implementations
             return GenericResponse<string>.ErrorResponse("No Cart Item Found");
 
         }
+
+        public async Task<GenericResponse<int>> GetActiveCartItemAsync(Guid editCartItemRequestDTO)
+        {
+            int count = 0;
+            var customer = await _userManager.FindByIdAsync(editCartItemRequestDTO.ToString());
+            if(customer != null)
+            {
+                var cartItemExist = await _genericRepoCartItem.GetAllAsync();
+                if (cartItemExist != null)
+                {
+
+
+                    foreach (var item in cartItemExist)
+
+                    {
+                        if (new Guid(customer.Id) == item.CustomerId)
+                        {
+                            count++;
+                        }
+                    }
+
+                    if (count != 0)
+                    {
+                        return GenericResponse<int>.SuccessResponse(count, "Successful");
+                    }
+                    else
+                    {
+                        return GenericResponse<int>.ErrorResponse("No Cart Item Found");
+                    }
+                 
+                }
+                return GenericResponse<int>.ErrorResponse("Cart Item Not Reachable");
+            }
+            return GenericResponse<int>.ErrorResponse("No User Found");
+
+        }
     }
 }
