@@ -22,7 +22,7 @@ namespace Restaurant.API.Controllers
         [HttpPost("AddWishList/{ProductId}")]
         public async Task<IActionResult> AddWishList(Guid ProductId)
         {
-            var userId = "c1b2a3d4-5678-90e1-f2ab-c3de4f567890";
+            var userId = HttpContext.User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier).Value;
 
             CreatingWishlistRequestDTO model = new()
             {

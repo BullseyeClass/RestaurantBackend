@@ -43,7 +43,7 @@ namespace BootCamp.BusinessLogic.Services.Implementations
             var token = new JwtSecurityToken(audience: _configuration["JWTSettings:Audience"],
                 issuer: _configuration["JWTSettings:Issuer"],
                 claims: authClaims,
-                expires: DateTime.Now.AddMinutes(45),
+                expires: DateTime.Now.AddMinutes(40),
                 signingCredentials: new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256)
             );
             return new JwtSecurityTokenHandler().WriteToken(token);

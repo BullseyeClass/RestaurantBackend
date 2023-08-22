@@ -4,6 +4,7 @@ using Restaurant.DTO.Request;
 using Restaurant.DTO.Response;
 using Restaurant.DTO;
 using Restaurant.BusinessLogic.Services.Implementations;
+using System.Security.Claims;
 
 namespace Restaurant.API.Controllers
 {
@@ -21,7 +22,7 @@ namespace Restaurant.API.Controllers
         [HttpPost("AddProductToCart/{ProductId}")]
         public async Task<IActionResult> AddingProductToCart(Guid ProductId, int quantity)
         {
-            var userId = "c1b2a3d4-5678-90e1-f2ab-c3de4f567890";
+            var userId = HttpContext.User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier).Value;
 
             AddingProductToCartRequestDTO model = new()
             {
@@ -63,7 +64,7 @@ namespace Restaurant.API.Controllers
         public async Task<IActionResult> DUpdateCartItemAsync(Guid CartItemId, [FromBody] EditCartItemRequestDTO editCartItemRequestDTO)
         {
 
-            var userId = "c1b2a3d4-5678-90e1-f2ab-c3de4f567890";
+            var userId = HttpContext.User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier).Value;
 
             editCartItemRequestDTO.CartItemId = CartItemId;
             editCartItemRequestDTO.UpdatedBy = Guid.Parse(userId);
