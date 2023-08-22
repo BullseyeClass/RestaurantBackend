@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace Restaurant.API.Configuration
 {
+
     public static class AuthorizationConfiguration
     {
         public static void ConfigureAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
-
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -39,7 +39,34 @@ namespace Restaurant.API.Configuration
 
             services.AddAuthorization(options =>
                     options.AddPolicy("RequireAdminOnly", policy => policy.RequireRole(Constants.Roles.Admin)))
-                .AddAuthorization(options => options.AddPolicy("RequireCustomerOnly", policy => policy.RequireRole(Constants.Roles.Customer)));        }
+                .AddAuthorization(options => options.AddPolicy("RequireCustomerOnly", policy => policy.RequireRole(Constants.Roles.Customer)));
+
+            //services.AddAuthentication(options =>
+            //{
+            //    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            //    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            //    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            //})
+            //   .AddJwtBearer(options =>
+            //   {
+            //       options.SaveToken = true;
+            //       options.RequireHttpsMetadata = false;
+            //       options.TokenValidationParameters = new TokenValidationParameters()
+            //       {
+            //           ValidateIssuer = true,
+            //           ValidateAudience = true,
+            //           ValidAudience = configuration["JWTSettings:Audience"],
+            //           ValidIssuer = configuration["JWTSettings:Issuer"],
+            //           IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWTSettings:Secretkey"]))
+            //       };
+            //   });
+
+            //services.AddAuthorization(options =>
+            //                    options.AddPolicy("RequireAdminOnly", policy => policy.RequireRole(Constants.Roles.Admin)))
+            //                .AddAuthorization(options => options.AddPolicy("RequireCustomerOnly", policy => policy.RequireRole(Constants.Roles.Customer)));
+
+
+        }
 
     }
 }
