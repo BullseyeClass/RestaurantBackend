@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PaymentDTO = Restaurant.DTO.Request.PaymentDTO;
+using PaymentRequestDTO = Restaurant.DTO.Request.PaymentRequestDTO;
 
 namespace Restaurant.BusinessLogic.Services.Implementations
 {
@@ -25,37 +25,36 @@ namespace Restaurant.BusinessLogic.Services.Implementations
         }
 
 
-        public async Task<GenericResponse<PaymentDTO>> RegistrationAsync(CustomerRegistrationDTO traineeRegistrationDTO)
+        public async Task<GenericResponse<PaymentResponseDTO>> PaymentAsync(PaymentRequestDTO paymentRequestDTO)
         {
-            Customer trainee = new Customer()
+            try
             {
-                FirstName = traineeRegistrationDTO.FirstName,
-                LastName = traineeRegistrationDTO.LastName,
-                Email = traineeRegistrationDTO.Email,
-                UserName = traineeRegistrationDTO.Email.Split('@')[0],
-                EmailConfirmed = true
-            };
-
-            IdentityResult result = await _userManager.CreateAsync(trainee, traineeRegistrationDTO.Password);
-
-            if (result.Succeeded)
-            {
-                var emailToken = await _userManager.GenerateEmailConfirmationTokenAsync(trainee);
-                var registrationResult = new PaymentDTO()
+                // Create Paystack payment request
+                var paystackRequest = new TransactionInitializeRequest
                 {
-                    Id = trainee.Id,
-                    Email = traineeRegistrationDTO.Email,
-                    FullName = $"{trainee.FirstName} {trainee.LastName}",
-                    Token = emailToken
+                    AmountInKobo = paymentRequestDTO.Amount * 100, // Convert Naira to Kobo
+                    Email = paymentRequestDTO.Email,
+                    Reference = GenerateReference(),
+                    Currency = "NGN",
+                    CallbackUrl = "https://localhost:7159/Donate/Verify" // Replace with your actual callback URL
                 };
 
-                return GenericResponse<PaymentDTO>.SuccessResponse(registrationResult, "Registration successful");
+                // Call Paystack API to initialize payment
+                var paystackResponse = await InitializePaystackTransaction(paystackRequest);
+
+                // Return Paystack response
+                return GenericResponse<PaymentResponseDTO>.SuccessResponse(paystackResponse, "Payment initialization successful");
             }
-            else
+            catch (Exception ex)
             {
-                string errors = result.Errors.Aggregate(string.Empty, (current, error) => current + (error.Description + Environment.NewLine));
-                return GenericResponse<PaymentDTO>.ErrorResponse(errors, false);
+                return GenericResponse<PaymentResponseDTO>.ErrorResponse(ex.Message, false);
             }
+        }
+
+        public static int GenerateReference()
+        {
+            Random rand = new Random((int)DateTime.Now.Ticks);
+            return rand.Next(100000000, 999999999);
         }
 
     }

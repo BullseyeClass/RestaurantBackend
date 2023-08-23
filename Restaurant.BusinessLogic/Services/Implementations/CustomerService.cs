@@ -21,7 +21,7 @@ namespace Restaurant.BusinessLogic.Services.Implementations
         }
 
 
-        public async Task<GenericResponse<CustomerRegistrationDTO>> RegistrationAsync(CustomerRegistrationDTO traineeRegistrationDTO)
+        public async Task<GenericResponse<CustomerRegistrationResponseDTO>> RegistrationAsync(CustomerRegistrationDTO traineeRegistrationDTO)
         {
             Customer trainee = new Customer()
             {

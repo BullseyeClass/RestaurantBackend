@@ -18,7 +18,7 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpPost("register")]
-        [ProducesResponseType(typeof(GenericResponse<CustomerRegistrationDTO>), 200)]
+        [ProducesResponseType(typeof(GenericResponse<CustomerRegistrationResponseDTO>), 200)]
 
         public async Task<IActionResult> RegisterAsync([FromBody] CustomerRegistrationDTO traineeRegistrationDTO)
         {

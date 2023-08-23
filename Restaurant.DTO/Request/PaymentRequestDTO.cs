@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Restaurant.DTO.Request
 {
-    public class PaymentDTO
+    public class PaymentRequestDTO
     {
         public Guid Id { get; set; } = Guid.NewGuid();
         public decimal Amount { get; set; }

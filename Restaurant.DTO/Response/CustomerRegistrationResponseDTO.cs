@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Restaurant.DTO.Response
 {
-    public record PaymentDTO
+    public record CustomerRegistrationResponseDTO
     {
         public string Id { get; set; }
         public string Token { get; set; }
