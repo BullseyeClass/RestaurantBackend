@@ -13,5 +13,6 @@ namespace Restaurant.BusinessLogic.Services.Interfaces
         Task<GenericResponse<string>> AddProductToCartAsync(AddingProductToCartRequestDTO addingProductToCartRequestDTO);
         Task<GenericResponse<string>> DeleteProductFromCartAsync(DeleteCartItemRequestDTO deleteCartItemRequestDTO);
         Task<GenericResponse<string>> UpdateCartAsync(EditCartItemRequestDTO editCartItemRequestDTO);
+        Task<GenericResponse<int>> GetActiveCartItemAsync(Guid editCartItemRequestDTO);
     }
 }
