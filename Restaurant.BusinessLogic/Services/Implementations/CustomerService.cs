@@ -23,6 +23,14 @@ namespace Restaurant.BusinessLogic.Services.Implementations
 
         public async Task<GenericResponse<CustomerRegistrationResponseDTO>> RegistrationAsync(CustomerRegistrationDTO traineeRegistrationDTO)
         {
+
+            Customer userExist = await _userManager.FindByEmailAsync(traineeRegistrationDTO.Email);
+
+            if (userExist != null)
+            {
+                return GenericResponse<CustomerRegistrationResponseDTO>.ErrorResponse("Email already Exist", false);
+            }
+
             Customer trainee = new Customer()
             {
                 FirstName = traineeRegistrationDTO.FirstName,
