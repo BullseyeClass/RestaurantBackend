@@ -58,7 +58,7 @@ namespace Restaurant.API.Controllers
             
         }
 
-        [HttpDelete("DeleteWishList/{AddressId}")]
+        [HttpDelete("DeleteWishList/{Id}")]
         [ProducesResponseType(typeof(GenericResponse<string>), 200)]
         public async Task<IActionResult> DeleteWishLISTAsync(Guid Id)
         {
