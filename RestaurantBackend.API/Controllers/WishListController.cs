@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Restaurant.BusinessLogic.Services.Implementations;
 using Restaurant.BusinessLogic.Services.Interfaces;
 using Restaurant.Data.Entities;
 using Restaurant.Data.Repository.Implementation;
 using Restaurant.DTO;
 using Restaurant.DTO.Request;
+using Restaurant.DTO.Response;
 using System.Security.Claims;
 
 namespace Restaurant.API.Controllers
@@ -38,6 +40,40 @@ namespace Restaurant.API.Controllers
             }
 
             return BadRequest(generic);
+        }
+
+        [HttpGet("AllWishList")]
+        [ProducesResponseType(typeof(GenericResponse<GetWishListResponseDTO>), 200)]
+        public async Task<IActionResult> GetWishList()
+        {
+           
+                var response = await _wishListService.GetAllWishListAsync();
+
+                if (response.Success)
+                {
+                    return Ok(response.Data);
+                }
+
+                return BadRequest(response);
+            
+        }
+
+        [HttpDelete("DeleteWishList/{AddressId}")]
+        [ProducesResponseType(typeof(GenericResponse<string>), 200)]
+        public async Task<IActionResult> DeleteWishLISTAsync(Guid Id)
+        {
+            DeleteWishListItemRequestDTO deleteWishListRequestDTO = new()
+            {
+                WishListItemId = Id
+            };
+            var response = await _wishListService.DeleteAddressAsync(deleteWishListRequestDTO);
+
+            if (response.Success)
+            {
+                return Ok(response.Data);
+            }
+
+            return BadRequest(response);
         }
     }
 }
