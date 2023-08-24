@@ -12,7 +12,7 @@ namespace Restaurant.BusinessLogic.Services.Interfaces
     public interface IWishListService
     {
         Task<GenericResponse<string>> CreateWishListAsync(CreatingWishlistRequestDTO model);
-        Task<GenericResponse<string>> DeleteAddressAsync(DeleteWishListItemRequestDTO deleteWishListItemRequestDTO);
+        Task<GenericResponse<string>> DeleteWishListAsync(DeleteWishListItemRequestDTO deleteWishListItemRequestDTO);
         Task<GenericResponse<List<GetWishListResponseDTO>>> GetAllWishListAsync();
     }
 }

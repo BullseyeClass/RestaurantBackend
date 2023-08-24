@@ -36,7 +36,7 @@ namespace Restaurant.BusinessLogic.Services.Implementations
 
             if (success)
             {
-                return GenericResponse<string>.SuccessResponse($"Wishlist has been added sucessfully");
+                return GenericResponse<string>.SuccessResponse($"Product has been added to your wishlist successfully");
             }
 
             return GenericResponse<string>.ErrorResponse($"Wishlist has not been added");
@@ -61,14 +61,14 @@ namespace Restaurant.BusinessLogic.Services.Implementations
                     };
                     filterWishListDTOList.Add(filterwishListDTO);
                 };
-                return GenericResponse<List<GetWishListResponseDTO>>.SuccessResponse(filterWishListDTOList, "WishList Added Successfully");
+                return GenericResponse<List<GetWishListResponseDTO>>.SuccessResponse(filterWishListDTOList, "Sucessful");
             }
             return GenericResponse<List<GetWishListResponseDTO>>.ErrorResponse("No WishList Found");
 
         }
 
 
-        public async Task<GenericResponse<string>> DeleteAddressAsync(DeleteWishListItemRequestDTO deleteWishListItemRequestDTO)
+        public async Task<GenericResponse<string>> DeleteWishListAsync(DeleteWishListItemRequestDTO deleteWishListItemRequestDTO)
         {
             var wishListExist = await _genericRepoWishlist.GetByIdAysnc(deleteWishListItemRequestDTO.WishListItemId);
 
@@ -76,9 +76,9 @@ namespace Restaurant.BusinessLogic.Services.Implementations
             {
                 await _genericRepoWishlist.DeleteAsync(wishListExist);
 
-                return GenericResponse<string>.SuccessResponse("Address Deleted Sucessfully", "Successful");
+                return GenericResponse<string>.SuccessResponse("Product has been deleted from your wishlist successfully");
             }
-            return GenericResponse<string>.ErrorResponse("No Address Found");
+            return GenericResponse<string>.ErrorResponse("No WishList Found");
 
         }
     }

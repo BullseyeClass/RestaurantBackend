@@ -36,7 +36,7 @@ namespace Restaurant.API.Controllers
 
             if (generic != null && generic.Success)
             {
-                return Ok(generic);
+                return Ok(generic.Data);
             }
 
             return BadRequest(generic);
@@ -60,13 +60,13 @@ namespace Restaurant.API.Controllers
 
         [HttpDelete("DeleteWishList/{Id}")]
         [ProducesResponseType(typeof(GenericResponse<string>), 200)]
-        public async Task<IActionResult> DeleteWishLISTAsync(Guid Id)
+        public async Task<IActionResult> DeleteWishListAsync(Guid Id)
         {
             DeleteWishListItemRequestDTO deleteWishListRequestDTO = new()
             {
                 WishListItemId = Id
             };
-            var response = await _wishListService.DeleteAddressAsync(deleteWishListRequestDTO);
+            var response = await _wishListService.DeleteWishListAsync(deleteWishListRequestDTO);
 
             if (response.Success)
             {
