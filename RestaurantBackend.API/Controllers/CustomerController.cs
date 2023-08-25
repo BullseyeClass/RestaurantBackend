@@ -29,7 +29,22 @@ namespace Restaurant.API.Controllers
                 return Ok(response);
             }
 
-            return BadRequest(response);
+            return BadRequest(response.Message);
+        }
+
+        [HttpGet("FullUserDetails/{Id}")]
+        [ProducesResponseType(typeof(GenericResponse<List<ReturningUserByIdDTO>>), 200)]
+
+        public async Task<IActionResult> GetFullUserDetailsAsync(Guid Id)
+        {
+            var response = await _traineeService.GettingUserById(Id.ToString());
+
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+
+            return BadRequest(response.Message);
         }
     }
 }

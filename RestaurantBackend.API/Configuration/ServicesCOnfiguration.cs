@@ -20,7 +20,8 @@ namespace Restaurant.API.Configuration
                 .AddScoped<IProductsFiltering, ProductsFiltering>()
               .AddScoped<IRequestSupportService, RequestSupportService>()
               .AddScoped<IAddressService, AddressService>()
-              .AddScoped<IGetAllProductID, GetAllProductIDsServices>();
+              .AddScoped<IGetAllProductID, GetAllProductIDsServices>()
+              .AddScoped<IOrderService, OrderService>();
         }
     }
 }
