@@ -7,6 +7,6 @@ namespace Restaurant.BusinessLogic.Services.Interfaces
     public interface ICustomerService
     {
         Task<GenericResponse<CustomerRegistrationResponseDTO>> RegistrationAsync(CustomerRegistrationDTO traineeRegistrationDTO);
-        Task<GenericResponse<ReturningUserByIdDTO>> GettingUserById(string userId);
+        Task<GenericResponse<List<ReturningUserByIdDTO>>> GettingUserById(string userId);
     }
 }
