@@ -13,11 +13,13 @@ namespace Restaurant.BusinessLogic.Services.Implementations
     {
         private readonly UserManager<Customer> _userManager;
         private readonly IGenericRepo<Customer> _genericRepo;
+        private readonly IGenericRepo<Address> _genericRepoAddress;
 
-        public CustomerService(UserManager<Customer> userManager, IGenericRepo<Customer> genericRepo)
+        public CustomerService(UserManager<Customer> userManager, IGenericRepo<Customer> genericRepo, IGenericRepo<Address> genericRepoAddress)
         {
             this._userManager = userManager;
             this._genericRepo = genericRepo;
+            _genericRepoAddress = genericRepoAddress;
         }
 
 
@@ -63,23 +65,53 @@ namespace Restaurant.BusinessLogic.Services.Implementations
         }
 
 
-        public async Task<GenericResponse<ReturningUserByIdDTO>> GettingUserById(string userId)
+        public async Task<GenericResponse<List<ReturningUserByIdDTO>>> GettingUserById(string userId)
         {
             Customer customer = await _userManager.FindByIdAsync(userId);
+
+            if (customer == null)
+            {
+                // Handle the case where the customer is not found.
+                return GenericResponse<List<ReturningUserByIdDTO>>.ErrorResponse("Customer not found");
+            }
 
             ReturningUserByIdDTO returningUserByIdDTO = new()
             {
                 FirstName = customer.FirstName,
                 LastName = customer.LastName,
                 MiddleName = customer.MiddleName,
+                Addresses = new List<AddingAddressResponseDTO>(),
             };
-            if (customer != null)
-            {
-                return GenericResponse<ReturningUserByIdDTO>.SuccessResponse(returningUserByIdDTO, "Returning Customer Details");
-            }
 
-            return GenericResponse<ReturningUserByIdDTO>.ErrorResponse("Customer Details empty");
+            // Retrieve addresses associated with the customer
+            var addresses = await _genericRepoAddress.GetAllAsync();
+            var customerAddresses = addresses
+                .Where(x => x.CustomerId == Guid.Parse(customer.Id))
+                .Select(address => new AddingAddressResponseDTO
+                {
+                    Id = address.Id,
+                    Street = address.Street,
+                    City = address.City,
+                    State = address.State,
+                    PostalCode = address.PostalCode,
+                    Country = address.Country,
+                    IsShippingAddress = address.IsShippingAddress,
+                    CustomerId = address.CustomerId
+                    // Map other address-related properties...
+                })
+                .ToList();
+
+            // Add the customer's addresses to the DTO
+            returningUserByIdDTO.Addresses.AddRange(customerAddresses);
+
+            // Create a list for the DTO and add the customer details
+            List<ReturningUserByIdDTO> FullUserDetails = new();
+            FullUserDetails.Add(returningUserByIdDTO);
+
+            return GenericResponse<List<ReturningUserByIdDTO>>.SuccessResponse(FullUserDetails, "Returning Customer Details");
         }
+
+
     }
 }
 
