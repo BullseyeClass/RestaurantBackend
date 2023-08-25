@@ -4,19 +4,25 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Restaurant.DTO.Request
 {
     public class PaymentRequestDTO
     {
-        //public Guid Id { get; set; } = Guid.NewGuid();
+        [JsonIgnore]
+        public Guid Id { get; set; }
         [Required]
         public decimal Amount { get; set; }
         [Required]
         public string Email { get; set; }
-        [Required]
+        [Required]  
         public string Name { get; set; }
+        [JsonIgnore]
+        public string? Reference { get; set; }
+        [JsonIgnore]
+        public Guid CustomerId { get; set; }
         //public DateTime PaymentDate { get; set; } = DateTime.Now;
         //public string PaymentMethod { get; set; } // E.g., Credit Card, PayPal, etc.
         //public virtual Order Order { get; set; }

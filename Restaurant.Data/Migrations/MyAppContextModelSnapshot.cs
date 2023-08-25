@@ -16,7 +16,7 @@ namespace Restaurant.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.20")
+                .HasAnnotation("ProductVersion", "6.0.21")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -464,6 +464,14 @@ namespace Restaurant.Data.Migrations
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("char(36)");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<Guid>("OrderId")
                         .HasColumnType("char(36)");
 
@@ -471,6 +479,13 @@ namespace Restaurant.Data.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("PaymentMethod")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("TrxRef")
                         .IsRequired()
                         .HasColumnType("longtext");
 
