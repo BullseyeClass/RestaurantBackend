@@ -23,15 +23,10 @@ namespace Restaurant.API.Controllers
         }
 
 
-        [HttpPost("Payment/{Amount}/{Email}")]
-        public async Task<IActionResult> Payment(decimal Amount, string Email)
+        [HttpPost("Payment")]
+        public async Task<IActionResult> Payment(PaymentRequestDTO payment)
         {
-            PaymentRequestDTO payment = new PaymentRequestDTO() 
-            {
-                Amount = Amount,
-                Email = Email
 
-            };
             TransactionInitializeRequest request = new()
             {
                 AmountInKobo = (int)(payment.Amount * 100),
