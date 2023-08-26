@@ -133,8 +133,13 @@ namespace Restaurant.BusinessLogic.Services.Implementations
 
         public async Task<GenericResponse<string>> UpdateOrderAndOrderItemAsync(CheckoutRequestDTO checkoutRequestDTO)
         {
+            //Guid oderItemId = Guid.Empty;
+
             var newOrder = new Order
             {
+                CreatedBy = checkoutRequestDTO.CustomerId,
+                CustomerId = checkoutRequestDTO.CustomerId,
+                CreatedAt = DateTime.Now,
                 OrderDate = DateTime.Now,
                 TotalAmount = checkoutRequestDTO.TotalAmount,
             };
@@ -144,7 +149,7 @@ namespace Restaurant.BusinessLogic.Services.Implementations
                 var newOrderItem = new OrderItem
                 {
                     Quantity = item.Quantity,
-                    OrderId = item.OrderId,
+                    OrderId = newOrder.Id,
                     ProductId = item.ProductId,
                 };
 
@@ -155,7 +160,7 @@ namespace Restaurant.BusinessLogic.Services.Implementations
 
             if (sucess)
             {
-                return GenericResponse<string>.SuccessResponse("Order and OrderItem Updated Succesfully");
+                return GenericResponse<string>.SuccessResponse($"{newOrder.Id}");
             }
             else
             {

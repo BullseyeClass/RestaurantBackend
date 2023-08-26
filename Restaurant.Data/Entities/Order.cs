@@ -14,6 +14,6 @@ namespace Restaurant.Data.Entities
         public decimal TotalAmount { get; set; }
         public virtual Customer Customer { get; set; }
         public virtual Guid CustomerId { get; set; }
-        public virtual ICollection<OrderItem> OrderItems { get; set; }
+        public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
     }
 }
