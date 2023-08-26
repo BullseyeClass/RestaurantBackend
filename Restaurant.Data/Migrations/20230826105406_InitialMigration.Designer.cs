@@ -11,7 +11,7 @@ using Restaurant.Data.Context;
 namespace Restaurant.Data.Migrations
 {
     [DbContext(typeof(MyAppContext))]
-    [Migration("20230825135556_InitialMigration")]
+    [Migration("20230826105406_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -433,6 +433,9 @@ namespace Restaurant.Data.Migrations
                     b.Property<Guid>("OrderId")
                         .HasColumnType("char(36)");
 
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("char(36)");
+
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
@@ -447,6 +450,8 @@ namespace Restaurant.Data.Migrations
                     b.HasIndex("CustomerId");
 
                     b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("OrderItems");
                 });
@@ -474,7 +479,7 @@ namespace Restaurant.Data.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<Guid>("OrderId")
+                    b.Property<Guid?>("OrderId")
                         .HasColumnType("char(36)");
 
                     b.Property<DateTime>("PaymentDate")
@@ -544,9 +549,6 @@ namespace Restaurant.Data.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<Guid?>("OrderItemId")
-                        .HasColumnType("char(36)");
-
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(65,30)");
 
@@ -577,8 +579,6 @@ namespace Restaurant.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("OrderItemId");
 
                     b.ToTable("Products");
                 });
@@ -854,18 +854,24 @@ namespace Restaurant.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Restaurant.Data.Entities.Product", "Products")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Customer");
 
                     b.Navigation("Order");
+
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("Restaurant.Data.Entities.Payment", b =>
                 {
                     b.HasOne("Restaurant.Data.Entities.Order", "Order")
                         .WithMany()
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OrderId");
 
                     b.Navigation("Order");
                 });
@@ -875,10 +881,6 @@ namespace Restaurant.Data.Migrations
                     b.HasOne("Restaurant.Data.Entities.Category", null)
                         .WithMany("Products")
                         .HasForeignKey("CategoryId");
-
-                    b.HasOne("Restaurant.Data.Entities.OrderItem", null)
-                        .WithMany("Products")
-                        .HasForeignKey("OrderItemId");
                 });
 
             modelBuilder.Entity("Restaurant.Data.Entities.ReturnRequest", b =>
@@ -966,11 +968,6 @@ namespace Restaurant.Data.Migrations
             modelBuilder.Entity("Restaurant.Data.Entities.Order", b =>
                 {
                     b.Navigation("OrderItems");
-                });
-
-            modelBuilder.Entity("Restaurant.Data.Entities.OrderItem", b =>
-                {
-                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

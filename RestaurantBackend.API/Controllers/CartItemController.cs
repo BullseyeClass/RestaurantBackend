@@ -94,5 +94,25 @@ namespace Restaurant.API.Controllers
             }
             return BadRequest(result);
         }
+
+        [HttpPost("UpdateOrders")]
+        [ProducesResponseType(typeof(GenericResponse<string>), 200)]
+        public async Task<IActionResult> UpdateOrdersAsync([FromBody] CheckoutRequestDTO checkoutRequestDTO)
+        {
+
+            var userId = HttpContext.User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier).Value;
+
+            checkoutRequestDTO.CustomerId = Guid.Parse(userId);
+
+
+            var response = await _addProductToCart.UpdateOrderAndOrderItemAsync(checkoutRequestDTO);
+
+            if (response.Success)
+            {
+                return Ok(response.Data);
+            }
+
+            return BadRequest(response);
+        }
     }
 }

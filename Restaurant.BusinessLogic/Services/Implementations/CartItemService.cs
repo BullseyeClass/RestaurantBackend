@@ -21,11 +21,13 @@ namespace Restaurant.BusinessLogic.Services.Implementations
     {
         private readonly UserManager<Customer> _userManager;
         private readonly IGenericRepo<CartItem> _genericRepoCartItem;
+        private readonly IGenericRepo<Order> _genericRepoOrder;
 
-        public CartItemService(IGenericRepo<CartItem> genericRepo, UserManager<Customer> userManager)
+        public CartItemService(IGenericRepo<CartItem> genericRepo, UserManager<Customer> userManager, IGenericRepo<Order> genericRepoOrder)
         {
             _genericRepoCartItem = genericRepo;
             _userManager = userManager;
+            _genericRepoOrder = genericRepoOrder;
         }
 
         public async Task<GenericResponse<string>> AddProductToCartAsync(AddingProductToCartRequestDTO addingProductToCartRequestDTO)
@@ -127,52 +129,38 @@ namespace Restaurant.BusinessLogic.Services.Implementations
         }
 
 
-        //[HttpPost("checkout")]
-        //public ActionResult Checkout(CheckoutRequest request)
-        //{
-        //    // Here, process the checkout request, create order and order items,
-        //    // calculate total amount, associate customer, products, etc.
-        //    // Then, save the changes to the database.
+      
 
-        //    // Example pseudocode:
-        //    var newOrder = new Order
-        //    {
-        //        // Populate order properties...
-        //    };
+        public async Task<GenericResponse<string>> UpdateOrderAndOrderItemAsync(CheckoutRequestDTO checkoutRequestDTO)
+        {
+            var newOrder = new Order
+            {
+                OrderDate = DateTime.Now,
+                TotalAmount = checkoutRequestDTO.TotalAmount,
+            };
 
-        //    foreach (var item in request.Items)
-        //    {
-        //        var newOrderItem = new OrderItem
-        //        {
-        //            // Populate order item properties...
-        //        };
+            foreach (var item in checkoutRequestDTO.Items)
+            {
+                var newOrderItem = new OrderItem
+                {
+                    Quantity = item.Quantity,
+                    OrderId = item.OrderId,
+                    ProductId = item.ProductId,
+                };
 
-        //        newOrder.OrderItems.Add(newOrderItem);
-        //    }
+                newOrder.OrderItems.Add(newOrderItem);
+            }
 
-        //    _dbContext.Orders.Add(newOrder);
-        //    _dbContext.SaveChanges();
+            bool sucess = await _genericRepoOrder.InsertAsync(newOrder);
 
-        //    return Ok(new { Message = "Order placed successfully." });
-        //}
-
-
-        //public async Task<GenericResponse<string>> UpdateOrderAndOrderItemAsync(CheckoutRequestDTO checkoutRequestDTO)
-        //{
-        //    var newOrder = new Order
-        //    {
-        //        // Populate order properties...
-        //    };
-
-        //    foreach (var item in checkoutRequestDTO.Items)
-        //    {
-        //        var newOrderItem = new OrderItem
-        //        {
-        //            // Populate order item properties...
-        //        };
-
-        //        newOrder.OrderItems.Add(newOrderItem);
-        //    }
-        //}
+            if (sucess)
+            {
+                return GenericResponse<string>.SuccessResponse("Order and OrderItem Updated Succesfully");
+            }
+            else
+            {
+                return GenericResponse<string>.ErrorResponse("fail");
+            }
+        }
     }
 }
