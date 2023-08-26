@@ -1,0 +1,39 @@
+name: 🚀 Deploy to GoDaddy on Dev Push
+on:
+  push:
+    branches:
+      - Dev
+
+jobs:
+  web-deploy-dev:
+    name: 🎉 Deploy to GoDaddy
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v3
+
+      - name: Setup .NET Core SDK 6.0
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: '6.0'
+
+      - name: Install dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet publish --configuration Release --no-restore
+
+      - name: 📂 Upload files via FTPS
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: api.bullsmart.store
+          username: ${{ secrets.BULLSMARTGODDAYUSERNAME }}
+          password: ${{ secrets.BULLSMARTGODDAYPASSWORD }}
+          local-dir: ./bin/Release/net6.0/publish/
+          server-dir: api.bullsmart.store/ 
+          protocol: ftps
+          dangerous-clean-slate: true
+          exclude: |
+            .cspell.json
+            package.json
+            package-lock.json
