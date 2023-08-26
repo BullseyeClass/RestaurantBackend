@@ -14,6 +14,6 @@ namespace Restaurant.BusinessLogic.Services.Interfaces
     public interface IPaymentService
     {
         Task<GenericResponse<string>> VerifyAsync(string reference, Guid Id);
-        Task<GenericResponse<string>> PaymentAsync(PaymentRequestDTO paymentRequestDTO);
+        Task<GenericResponse<string>> PaymentAsync(PaymentRequestDTO paymentRequestDTO, Guid OrderId);
     }
 }

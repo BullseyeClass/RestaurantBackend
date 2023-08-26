@@ -31,21 +31,25 @@ namespace Restaurant.BusinessLogic.Services.Implementations
         private PayStackApi Paystack { get; set; }
 
 
-        public PaymentService(IGenericRepo<Payment> genericRepo, IConfiguration configuration, IGenericRepo<Order> genericOrderRepo)
+        public PaymentService(IGenericRepo<Payment> genericRepo, IConfiguration configuration, IGenericRepo<Order> genericOrderRepo, UserManager<Customer> userManager)
         {
             _genericPaymentRepo = genericRepo;
             _configuration = configuration;
             _genericOrderRepo = genericOrderRepo;
+            _userManager = userManager;
+            _configuration = configuration;
+            token = _configuration["Payment:PaystackSK"];
+            Paystack = new PayStackApi(token);
         }
 
 
-        public async Task<GenericResponse<string>> PaymentAsync(PaymentRequestDTO paymentRequestDTO)
+        public async Task<GenericResponse<string>> PaymentAsync(PaymentRequestDTO paymentRequestDTO, Guid OrderId)
         {
             try
             {
                 var user = await _userManager.FindByIdAsync(paymentRequestDTO.CustomerId.ToString());
 
-                if(user == null)
+                if (user != null)
                 {
                     // Create Paystack payment request
                     var paystackRequest = new TransactionInitializeRequest
@@ -54,23 +58,32 @@ namespace Restaurant.BusinessLogic.Services.Implementations
                         Email = paymentRequestDTO.Email,
                         Reference = GenerateReference().ToString(),
                         Currency = "NGN",
-                        CallbackUrl = "https://localhost:7159/Donate/Verify"
+                        CallbackUrl = paymentRequestDTO.CallbackUrl
                     };
+
+                    var transaction = new Payment();
 
                     TransactionInitializeResponse response = Paystack.Transactions.Initialize(paystackRequest);
                     if (response.Status)
                     {
-                        var transaction = new Payment()
+                        var order = await _genericOrderRepo.GetByIdAysnc(OrderId);
+
+                        if (order != null)
                         {
-                            Id = paymentRequestDTO.Id,
-                            Name = paymentRequestDTO.Name,
-                            Amount = paymentRequestDTO.Amount,
-                            TrxRef = paystackRequest.Reference,
-                            Email = paymentRequestDTO.Email,
-                            //Status = response.Status,
-                            PaymentDate = DateTime.Now,
-                            PaymentMethod = "PayStack",
-                        };
+
+                            transaction = new Payment()
+                            {
+                                Id = paymentRequestDTO.Id,
+                                Name = paymentRequestDTO.Name,
+                                Amount = paymentRequestDTO.Amount,
+                                TrxRef = paystackRequest.Reference,
+                                Email = paymentRequestDTO.Email,
+                                OrderId = OrderId,
+                                Order = order,
+                                PaymentDate = DateTime.Now,
+                                PaymentMethod = "PayStack",
+                            };
+                        }
                         bool success = await _genericPaymentRepo.InsertAsync(transaction);
 
                         if (success)
@@ -127,7 +140,7 @@ namespace Restaurant.BusinessLogic.Services.Implementations
                     }
 
                     return GenericResponse<string>.ErrorResponse($"Order failed");
-           
+
                 }
                 else
                 {
@@ -138,7 +151,7 @@ namespace Restaurant.BusinessLogic.Services.Implementations
             {
                 return GenericResponse<string>.ErrorResponse($"Transaction failed");
             }
-           
+
         }
 
         public static int GenerateReference()

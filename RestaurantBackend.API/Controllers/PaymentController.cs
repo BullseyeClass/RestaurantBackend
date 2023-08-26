@@ -20,11 +20,12 @@ namespace Restaurant.API.Controllers
         public readonly IPaymentService _paymentService;
 
         private PayStackApi Paystack { get; set; }
-        public PaymentController(IConfiguration configuration)
+        public PaymentController(IConfiguration configuration, IPaymentService paymentService)
         {
             _configuration = configuration;
             token = _configuration["Payment:PaystackSK"];
             Paystack = new PayStackApi(token);
+            _paymentService = paymentService;
         }
 
 
@@ -38,7 +39,7 @@ namespace Restaurant.API.Controllers
         //        Email = payment.Email,
         //        Reference = Generate().ToString(),
         //        Currency = "NGN",
-        //        CallbackUrl = "https://localhost:7013/api/Payment/Verify"
+        //        CallbackUrl = "https://localhost:7090/Order"
         //    };
 
         //    TransactionInitializeResponse response = Paystack.Transactions.Initialize(request);
@@ -59,15 +60,16 @@ namespace Restaurant.API.Controllers
 
         //}
 
-        [HttpPost("Payment")]
+
+        [HttpPost("Payment/{OrderId}")]
         [ProducesResponseType(typeof(GenericResponse<string>), 200)]
-        public async Task<IActionResult> Payment(PaymentRequestDTO payment)
+        public async Task<IActionResult> Payment(PaymentRequestDTO payment, Guid OrderId)
         {
             var userId = HttpContext.User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier).Value;
 
             payment.CustomerId = Guid.Parse(userId);
 
-            var response = await _paymentService.PaymentAsync(payment);
+            var response = await _paymentService.PaymentAsync(payment, OrderId);
 
             if (response.Success)
             {
@@ -95,7 +97,8 @@ namespace Restaurant.API.Controllers
 
         }
 
-        //    [HttpPost("Verify")]
+
+        //[HttpPost("Verify")]
         //public async Task<IActionResult> Verify(string reference)
         //{
         //    TransactionVerifyResponse response = Paystack.Transactions.Verify(reference);

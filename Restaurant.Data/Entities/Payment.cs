@@ -17,8 +17,8 @@ namespace Restaurant.Data.Entities
         public bool Status { get; set; }
         public DateTime PaymentDate { get; set; }
         public string PaymentMethod { get; set; } // E.g., Credit Card, PayPal, etc.
-        public virtual Order Order { get; set; }
-        public virtual Guid OrderId { get; set; }
+        public virtual Order? Order { get; set; }
+        public virtual Guid? OrderId { get; set; }
     }
 
 }

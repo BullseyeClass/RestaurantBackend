@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using Restaurant.Data.Context;
 using Restaurant.BusinessLogic.Services.Interfaces;
 using Restaurant.Data.Repository.Interface;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Restaurant.BusinessLogic.Services.Implementations
 {
@@ -93,7 +94,7 @@ namespace Restaurant.BusinessLogic.Services.Implementations
         {
             int count = 0;
             var customer = await _userManager.FindByIdAsync(editCartItemRequestDTO.ToString());
-            if(customer != null)
+            if (customer != null)
             {
                 var cartItemExist = await _genericRepoCartItem.GetAllAsync();
                 if (cartItemExist != null)
@@ -117,12 +118,61 @@ namespace Restaurant.BusinessLogic.Services.Implementations
                     {
                         return GenericResponse<int>.ErrorResponse("No Cart Item Found");
                     }
-                 
+
                 }
                 return GenericResponse<int>.ErrorResponse("Cart Item Not Reachable");
             }
             return GenericResponse<int>.ErrorResponse("No User Found");
 
         }
+
+
+        //[HttpPost("checkout")]
+        //public ActionResult Checkout(CheckoutRequest request)
+        //{
+        //    // Here, process the checkout request, create order and order items,
+        //    // calculate total amount, associate customer, products, etc.
+        //    // Then, save the changes to the database.
+
+        //    // Example pseudocode:
+        //    var newOrder = new Order
+        //    {
+        //        // Populate order properties...
+        //    };
+
+        //    foreach (var item in request.Items)
+        //    {
+        //        var newOrderItem = new OrderItem
+        //        {
+        //            // Populate order item properties...
+        //        };
+
+        //        newOrder.OrderItems.Add(newOrderItem);
+        //    }
+
+        //    _dbContext.Orders.Add(newOrder);
+        //    _dbContext.SaveChanges();
+
+        //    return Ok(new { Message = "Order placed successfully." });
+        //}
+
+
+        //public async Task<GenericResponse<string>> UpdateOrderAndOrderItemAsync(CheckoutRequestDTO checkoutRequestDTO)
+        //{
+        //    var newOrder = new Order
+        //    {
+        //        // Populate order properties...
+        //    };
+
+        //    foreach (var item in checkoutRequestDTO.Items)
+        //    {
+        //        var newOrderItem = new OrderItem
+        //        {
+        //            // Populate order item properties...
+        //        };
+
+        //        newOrder.OrderItems.Add(newOrderItem);
+        //    }
+        //}
     }
 }

@@ -23,6 +23,8 @@ namespace Restaurant.DTO.Request
         public string? Reference { get; set; }
         [JsonIgnore]
         public Guid CustomerId { get; set; }
+        [JsonIgnore]
+        public string? CallbackUrl { get; set; }
         //public DateTime PaymentDate { get; set; } = DateTime.Now;
         //public string PaymentMethod { get; set; } // E.g., Credit Card, PayPal, etc.
         //public virtual Order Order { get; set; }
