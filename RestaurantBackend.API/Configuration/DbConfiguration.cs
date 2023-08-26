@@ -10,12 +10,15 @@ namespace Restaurant.API.Configuration
     {
         public static void AddDbConfig(this IServiceCollection services, IConfiguration configuration)
         {
-            var con = configuration.GetConnectionString(name: "DefaultConnection");
+            // var con = configuration.GetConnectionString(name: "DefaultConnection");
+
+            // services.AddDbContext<MyAppContext>(options =>
+            //options.UseMySql(con, ServerVersion.AutoDetect(con)));
 
             services.AddDbContext<MyAppContext>(options =>
-           options.UseMySql(con, ServerVersion.AutoDetect(con)));
-   
-          
+             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
+
         }
     }
 
