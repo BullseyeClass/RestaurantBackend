@@ -1,4 +1,5 @@
 name: Deploy to Heroku
+
 on:
   push:
     branches:
@@ -23,7 +24,6 @@ jobs:
 
       - name: Build
         run: dotnet publish --configuration Release --no-restore
-      # Add any additional build steps as needed
 
   deploy:
     name: Deploy to Heroku
@@ -31,8 +31,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Set up Heroku
-        uses: heroku/setup-heroku@v1
+      - name: Install Heroku CLI
+        run: curl https://cli-assets.heroku.com/install.sh | sh
+
+      - name: Login to Heroku
+        run: heroku login -i
 
       - name: Deploy to Heroku
         run: heroku deploy bullsmart
