@@ -1,4 +1,4 @@
-name: 🚀 Deploy to GoDaddy on Dev Push
+name: 🚀 Deploy to AWS Elastic Beanstalk
 
 on:
   push:
@@ -6,16 +6,16 @@ on:
       - Dev
 
 jobs:
-  web-deploy-dev:
-    name: 🎉 Deploy to GoDaddy
+  build:
+    name: Build and Publish
     runs-on: ubuntu-latest
 
     steps:
       - name: 🚚 Get latest code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Setup .NET Core SDK 6.0
-        uses: actions/setup-dotnet@v2
+        uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 6.0.x
 
@@ -24,18 +24,26 @@ jobs:
 
       - name: Build
         run: dotnet publish --configuration Release --no-restore
+      # Add any additional build steps as needed
 
-      - name: 📂 Upload files via FTPS
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+  deploy:
+    name: Deploy to AWS Elastic Beanstalk
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to AWS Elastic Beanstalk
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-          server: api.bullsmart.store
-          username: HostingBullMartApi
-          password: Rest@123
-          local-dir: bin\Release\net6.0\publish\
-          server-dir: api.bullsmart.store/
-          protocol: ftps
-          dangerous-clean-slate: true
-          exclude: |
-            .cspell.json
-            package.json
-            package-lock.json
+          aws-access-key-id: AKIAZWBFJTF3Q3NSIP6L
+          aws-secret-access-key: 95iVpwyzyFKJrOkisyq/EP/HTw/Y6vlhRjwewNrx
+          aws-region: us-east-1 # Change to your desired AWS region
+
+      - name: Initialize Elastic Beanstalk
+        run: eb init -p 'your-platform-name' -r us-east-1
+
+      - name: Deploy to Elastic Beanstalk
+        run: eb deploy your-environment-name
+
+      - name: Deploy status
+        run: eb status
