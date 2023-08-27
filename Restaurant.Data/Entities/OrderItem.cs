@@ -13,8 +13,9 @@ namespace Restaurant.Data.Entities
         public int Quantity { get; set; }
         public virtual Customer Customer { get; set; } = new Customer();
         public virtual Order Order { get; set; } = new Order();
-        public virtual Guid OrderId { get; set; }
-        public virtual IQueryable<Product>? Products { get; set; }
+        public  Guid OrderId { get; set; }
+        public virtual Product Products { get; set; }
+        public Guid ProductId { get; set; }
 
     }
 }

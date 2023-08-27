@@ -14,8 +14,11 @@ namespace Restaurant.API.Configuration
 
             services.AddDbContext<MyAppContext>(options =>
            options.UseMySql(con, ServerVersion.AutoDetect(con)));
-   
-          
+
+            //services.AddDbContext<MyAppContext>(options =>
+            // options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
+
         }
     }
 
