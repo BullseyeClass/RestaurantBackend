@@ -29,8 +29,8 @@ jobs:
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: api.bullsmart.store
-          username: ${{ secrets.BULLSMARTGODDAYUSERNAME }}
-          password: ${{ secrets.BULLSMARTGODDAYPASSWORD }}
+          username: HostingBullMartApi
+          password: Rest@123
           server-dir: api.bullsmart.store/
           protocol: ftps
           dangerous-clean-slate: true
