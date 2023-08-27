@@ -4,7 +4,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:3211",
+      "applicationUrl": "https://bullsmart-b040d7861cf7.herokuapp.com/",
       "sslPort": 44380
     }
   },
@@ -14,7 +14,7 @@
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:7013;http://localhost:5124",
+      "applicationUrl": "https://bullsmart-b040d7861cf7.herokuapp.com/;https://bullsmart-b040d7861cf7.herokuapp.com/",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
