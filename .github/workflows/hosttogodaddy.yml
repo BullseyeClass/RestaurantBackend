@@ -1,5 +1,4 @@
-name: 🚀 Deploy to AWS Elastic Beanstalk
-
+name: Deploy to Heroku
 on:
   push:
     branches:
@@ -27,33 +26,14 @@ jobs:
       # Add any additional build steps as needed
 
   deploy:
-    name: Deploy to AWS Elastic Beanstalk
+    name: Deploy to Heroku
     needs: build
     runs-on: ubuntu-latest
 
     steps:
-      - name: Deploy to AWS Elastic Beanstalk
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: AKIAZWBFJTF3Q3NSIP6L
-          aws-secret-access-key: 95iVpwyzyFKJrOkisyq/EP/HTw/Y6vlhRjwewNrx
-          aws-region: us-east-1 # Change to your desired AWS region
+      - name: Set up Heroku
+        uses: heroku/setup-heroku@v1
 
-      - name: Install EB CLI
-        run: |
-          sudo apt-get update
-          sudo apt-get install python3-pip -y
-          sudo pip3 install awsebcli
-          
-      - name: Initialize Elastic Beanstalk
-        run: eb init -p 'your-platform-name' -r us-east-1
-        # Replace 'your-platform-name' and 'us-east-1' with your specific values
-
-      - name: Deploy to Elastic Beanstalk
-        run: eb deploy your-environment-name
-        # Replace 'your-environment-name' with your specific environment name
-
-      - name: Deploy status
-        run: eb status
-
-# Optionally, you can add more jobs for testing, approval, etc., as needed.
+      - name: Deploy to Heroku
+        run: heroku deploy bullsmart
+        # Replace 'your-app-name' with your Heroku app name
