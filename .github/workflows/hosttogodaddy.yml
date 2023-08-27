@@ -31,7 +31,7 @@ jobs:
           server: api.bullsmart.store
           username: HostingBullMartApi
           password: Rest@123
-          local dir: bin\Release\net6.0\publish\
+          local-dir: bin/Release/net6.0/publish/
           server-dir: api.bullsmart.store/
           protocol: ftps
           dangerous-clean-slate: true
@@ -39,19 +39,3 @@ jobs:
             .cspell.json
             package.json
             package-lock.json
-
-      - name: 📂 Upload files via FTPS with Retry
-        run: |
-          retries=3
-          for i in $(seq "$retries"); do
-            echo "Attempt $i"
-            if your-ftp-deploy-command; then
-              break
-            elif [ "$i" -eq "$retries" ]; then
-              echo "Max retries reached, exiting..."
-              exit 1
-            else
-              echo "Retry in 10 seconds..."
-              sleep 10
-            fi
-          done
