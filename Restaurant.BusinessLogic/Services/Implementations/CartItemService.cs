@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using Restaurant.Data.Context;
 using Restaurant.BusinessLogic.Services.Interfaces;
 using Restaurant.Data.Repository.Interface;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Restaurant.BusinessLogic.Services.Implementations
 {
@@ -20,11 +21,13 @@ namespace Restaurant.BusinessLogic.Services.Implementations
     {
         private readonly UserManager<Customer> _userManager;
         private readonly IGenericRepo<CartItem> _genericRepoCartItem;
+        private readonly IGenericRepo<Order> _genericRepoOrder;
 
-        public CartItemService(IGenericRepo<CartItem> genericRepo, UserManager<Customer> userManager)
+        public CartItemService(IGenericRepo<CartItem> genericRepo, UserManager<Customer> userManager, IGenericRepo<Order> genericRepoOrder)
         {
             _genericRepoCartItem = genericRepo;
             _userManager = userManager;
+            _genericRepoOrder = genericRepoOrder;
         }
 
         public async Task<GenericResponse<string>> AddProductToCartAsync(AddingProductToCartRequestDTO addingProductToCartRequestDTO)
@@ -93,7 +96,7 @@ namespace Restaurant.BusinessLogic.Services.Implementations
         {
             int count = 0;
             var customer = await _userManager.FindByIdAsync(editCartItemRequestDTO.ToString());
-            if(customer != null)
+            if (customer != null)
             {
                 var cartItemExist = await _genericRepoCartItem.GetAllAsync();
                 if (cartItemExist != null)
@@ -117,12 +120,47 @@ namespace Restaurant.BusinessLogic.Services.Implementations
                     {
                         return GenericResponse<int>.ErrorResponse("No Cart Item Found");
                     }
-                 
+
                 }
                 return GenericResponse<int>.ErrorResponse("Cart Item Not Reachable");
             }
             return GenericResponse<int>.ErrorResponse("No User Found");
 
+        }
+
+
+      
+
+        public async Task<GenericResponse<string>> UpdateOrderAndOrderItemAsync(CheckoutRequestDTO checkoutRequestDTO)
+        {
+            var newOrder = new Order
+            {
+                OrderDate = DateTime.Now,
+                TotalAmount = checkoutRequestDTO.TotalAmount,
+            };
+
+            foreach (var item in checkoutRequestDTO.Items)
+            {
+                var newOrderItem = new OrderItem
+                {
+                    Quantity = item.Quantity,
+                    OrderId = item.OrderId,
+                    ProductId = item.ProductId,
+                };
+
+                newOrder.OrderItems.Add(newOrderItem);
+            }
+
+            bool sucess = await _genericRepoOrder.InsertAsync(newOrder);
+
+            if (sucess)
+            {
+                return GenericResponse<string>.SuccessResponse("Order and OrderItem Updated Succesfully");
+            }
+            else
+            {
+                return GenericResponse<string>.ErrorResponse("fail");
+            }
         }
     }
 }
