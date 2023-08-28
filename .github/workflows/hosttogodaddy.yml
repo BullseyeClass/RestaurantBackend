@@ -38,5 +38,5 @@ jobs:
         run: heroku login -i
 
       - name: Deploy to Heroku
-        run: heroku deploy bullsmart
+        run: heroku deploy newbullseye
         # Replace 'your-app-name' with your Heroku app name
