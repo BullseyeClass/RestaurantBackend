@@ -3,7 +3,7 @@ name: Deploy to Google Cloud
 on:
   push:
     branches:
-      - Dev  # Adjust the branch name as needed
+      - main  # Adjust the branch name as needed
 
 jobs:
   build:
@@ -16,7 +16,7 @@ jobs:
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: 6.0.x
+          dotnet-version: 6.x
 
       - name: Restore Dependencies
         run: dotnet restore
@@ -37,6 +37,9 @@ jobs:
         with:
           credentials: ${{ secrets.GCP_SA_KEY }}
           project_id: neon-research-397309  # Replace with your Google Cloud Project ID
+
+      - name: Authenticate with Google Cloud
+        run: gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
 
       - name: Deploy to Google App Engine
         run: |
