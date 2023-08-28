@@ -36,7 +36,7 @@ jobs:
         uses: google-github-actions/setup-gcloud@v0.2.0
         with:
           credentials: ${{ secrets.GCP_SA_KEY }}
-          project_id: your-project-id  # Replace with your Google Cloud Project ID
+          project_id: neon-research-397309  # Replace with your Google Cloud Project ID
 
       - name: Deploy to Google App Engine
         run: |
