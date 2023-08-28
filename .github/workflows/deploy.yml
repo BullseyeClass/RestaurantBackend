@@ -36,7 +36,7 @@ jobs:
         uses: google-github-actions/setup-gcloud@v0.2.0
         with:
           credentials: ${{ secrets.GCP_SA_KEY }}
-          project_id: neon-research-397309 # Replace with your Google Cloud Project ID
+          project_id: neon-research-397309  # Replace with your Google Cloud Project ID
 
       - name: Authenticate with Google Cloud
         run: gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
