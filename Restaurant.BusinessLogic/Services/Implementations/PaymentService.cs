@@ -42,7 +42,6 @@ namespace Restaurant.BusinessLogic.Services.Implementations
             Paystack = new PayStackApi(token);
         }
 
-
         public async Task<GenericResponse<string>> PaymentAsync(PaymentRequestDTO paymentRequestDTO, Guid OrderId)
         {
             try
@@ -110,7 +109,6 @@ namespace Restaurant.BusinessLogic.Services.Implementations
                 return GenericResponse<string>.ErrorResponse(ex.Message, false);
             }
         }
-
 
         public async Task<GenericResponse<string>> VerifyAsync(string reference, Guid Id)
         {
